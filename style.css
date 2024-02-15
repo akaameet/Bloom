@@ -189,7 +189,7 @@ nav .search-form label:hover{
 }
 
 .home{
-    background: url(../assets/img/1home.jpg) no-repeat;
+    background: url(assets/img/1home.jpg) no-repeat;
     
     background-position: 50% 60%;
     background-size: cover;
@@ -226,7 +226,7 @@ nav .search-form label:hover{
     padding: 1rem 0;
     line-height: 1.8;
 }
-
+  /* category section */
 .box-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust the minimum and maximum width of each box */
@@ -266,37 +266,165 @@ h3 {
     font-weight: 500;
     font-size: 2rem;
 }
-/* product section */
-.product .product-slider {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust the minimum and maximum width of each box */
-    gap: 20px; /* Adjust the gap between the boxes */
-    padding: 10px 25px;
-}
-.product .product-slider .box{
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ /* step section  */
+.step_section_title {
     text-align: center;
-    background-color: #fff
-}
-.product .product-slider .box:hover {
-    box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.3); /* Add shadow for box effect */
-    transform: translateY(-10px); /* Lift the box slightly on hover */
-    transition: .3s;
+    padding: 50px 0;
+    font-size: 3.5rem;
+    color: var(--third);
 }
 
-.product .product-slider .box img{
-    height: 20rem;
-
-}
-.product .product-slider .box  span,
-.product .product-slider .box  .price {
-    font-size: 1.3rem;
+.steps_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0px 25px;
 }
 
-     /* Contact */
- .contact_container{
+.step_card {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.step_number {
+    font-size: 4rem;
+    color: var(--secondary);
+    /* align-items: center; */
+}
+ .step_card:hover .step_number i {
+    font-size: 4.2rem; /* Increase the font size */
+    transition: font-size 0.3s ease; /* Add a smooth transition effect */
+    color: var(--third);
+}
+
+.step_card:hover .step_number {
+    transform: scale(1.2); /* Scale the .step_number container */
+    transition: transform 0.3s ease; /* Add a smooth transition effect */
+}
+
+.step_title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.step_description {
+    font-size: 1.5rem;
+}
+
+/* product section */
+ .product {
+        display: flex;
+    }
+.product-list {
+    box-shadow: 5px 0 10px -5px rgba(0, 0, 0, 0.6), /* Right side shadow */
+               -5px 0 10px -5px rgba(0, 0, 0, 0.6);  /*Left side shadow */
+}
+
+.product-list ul {
+        list-style: none;
+        width:20rem;
+        /* background: hsl(0, 23%, 84%); */
+        padding: 2rem 0; /* Remove padding to avoid extra spacing */
+        margin: 0;
+    }
+    
+.product-list ul li {
+        margin-bottom: 10px; /* Adjust margin between list items */
+    }
+    
+.product-list ul li a {
+        text-decoration: none;
+        color: #3c3737;
+        font-weight: 600;
+        /* color: #333; */
+        text-align: center;
+        display: block; /* Change to block to fill the full width */
+        padding: 10px 15px;
+        background-color: #f9f9f9; /* Background color for list items */
+        /* border-radius: 5px; */
+        transition: background-color 0.3s ease;
+    }
+    
+.product-list  ul li a:hover {
+        background-color: var(--third);
+        color: white; /* Background color change on hover */
+    }
+.product-list ul li a:active{
+    background-color: var(--third);
+    color: white; 
+}    
+.product-list ul li a .nav-item {
+        font-size: 16px;
+    }
+    
+    /* Styles for the message */
+.no-plants-message {
+    text-align: center; /* Center the text */
+    font-size: 18px; /* Adjust the font size */
+    color: #333; /* Set the text color */
+    width: 100%; /* Ensure the message spans the entire width of the container */
+    margin-top: 20px; /* Add some space between the message and the products */
+}
+
+/* Update the product-item container to be a flex container */
+.product-item {
+    display: flex;
+    flex-grow: 1;
+    padding: 2rem;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Center the products horizontally */
+}
+
+    
+.product-item .box {
+        width: calc(25.25% - 20px); /* Adjust the width of the product box */
+        /* Subtracting 20px for the gap between boxes */
+        background-color: #f9f9f9; /* Background color for product boxes */
+        border-radius: 5px; /* Add rounded corners */
+        padding: 20px; /* Add padding */
+        box-sizing: border-box; /* Ensure padding is included in the width */
+    }
+    
+.product-item img {
+        width: 100%; /* Ensure the image takes up the full width of its container */
+        height: 100px; /* Set a fixed height for consistency */
+        object-fit: cover;
+        border-radius: 8px; /* Rounded corners for images */
+    }
+
+.product-item h3 {
+        margin-bottom: 5px;
+        font-size: 18px;
+    }
+    
+.product-item .price {
+        font-weight: bold;
+        color: #333;
+    }
+    
+.product-item .btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    
+.product-item .btn:hover {
+        background-color: #555;
+    }
+    
+
+
+
+/* Contact */
+.contact_container{
     padding: 3rem 10rem;
     /* row-gap: 3.5rem; */
     display: grid;
@@ -451,6 +579,38 @@ h3 {
     /* transform: translateX(-50%); /* Center the text horizontally */
     /* text-align: center; */
 }
+
+ /* product page css */
+ /* CSS for Categories Dropdown */
+.dropdown1 {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown1-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown1-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown1-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown1:hover .dropdown1-content {
+    display: block;
+}
+
 @media(max-width:940px){
     .overlay{
         padding: 2rem ;

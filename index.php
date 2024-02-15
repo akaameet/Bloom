@@ -1,3 +1,10 @@
+<?php
+include('dbconn.php');
+//total user
+$stmt = $pdo->prepare('SELECT * FROM product ORDER BY timestamp DESC LIMIT 10');
+$stmt->execute();
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +20,9 @@
 
             <nav class="navbar">
                 <div class="logo">
-                    <!-- <a href=""> -->
+                    <a href="#"> 
                         <img src="assets/img/bloom-high-resolution-logo-transparent.png"/> 
-                    <!-- </a> -->
+                     </a>
                 </div>
                 </div>
                 <input type="checkbox" id="click">
@@ -25,14 +32,13 @@
                 <ul>
                 <li class="homeLink"><a href="#home">Home</a></li>
                 <li><a href="#category">Category</a></li>
-                <li><a href="#product">Produts</a></li>
+                <li><a href="product.php">Produts</a></li>
                 <li><a href="#contact">Contacts</a></li>      
                 </ul>
                 <div class="icons">
                     <div class="fa fa-search" id="search-btn"></div>
                     <div class="fa fa-cart-shopping" id="cart"></div>
-                    <a href="login.php"> dddd</a>
-                    <!-- <div class="fa fa-user" id="login-btn"></div> -->
+                    <a href="login.php"> <div class="fa fa-user" id="login-btn"></div></a>
                 </div>
                 <form class="search-form">
                     <input type="search" id="search-box" placeholder="Search Here...">
@@ -41,6 +47,7 @@
                 </form>
             </nav>
             <!--home section-->
+
             <section class="home" id="home">
                 <div class="overlay">
                     <div class="content">
@@ -76,7 +83,7 @@
                             <a href="#" class="btn">Shop Now</a>
                         </div>
                     </div>
-                    <div class="box box-4">
+                    <div class="box">
                         <img src="assets/img/bonsai.jpg" alt="indoor">
                         <div class="content-box">
                             <h3>Bonsai</h3>
@@ -88,67 +95,56 @@
                 </div>
         
             </section>
+            <!-- step section -->
+
+            <section class = "steps section container">
+
+                <div class="steps_bg">
+                    <h2 class="step_section_title">Steps to start your <br>plants off right</h2>
+                    <div class="steps_container grid">
+                        <div class="step_card">
+
+                                <div class="step_number"><i class="fa-brands fa-pagelines"></i></div>
+
+                            <h3 class="step_title">Choose Plant</h3> 
+                            <p class="step_description">We have several varities plants to choose from</p>                           
+                        </div>
+                        <div class="step_card">
+
+                                <div class="step_number"><i class="fa-solid fa-cart-shopping"></i></div>
+
+                            <h3 class="step_title">Place an order</h3> 
+                            <p class="step_description">Once your is set,we move to the next step which is the shipping</p>                           
+                        </div>
+                        <div class="step_card">
+
+                                <div class="step_number"><i class="fa-solid fa-truck-fast"></i></div>
+
+                            <h3 class="step_title">Get plants delivered</h3> 
+                            <p class="step_description">Our delivery process is easy,you receive the plant direct to your door</p>                           
+                        </div>
+                    </div>
+                </div>
+                </section>
         <!-- product section -->
+        <h1 class="heading">New Arrival</h1>
             <section class="product" id="product">
-                <h1 class="heading">Products</h1>
                 <div class="swiper product-slider">
                         <div class="swiper-wrapper">
+                        <?php if (empty($products)): ?>
+                          <p class="no-plants-message">No outdoor plants available.</p>
+                          <?php else: ?>
+                          <?php foreach ($products as $product): ?>
                             <div class="swiper-slide box">
-                                <img src="assets/img/inddor.jpg" alt="indoor">
+                                <img src="assets/img/<?php echo $product['image']?>" alt="indoor">
                                 <div class="content-box">
-                                    <h3 >Indoor plant</h3>
-                                    <!-- <div class="quantity">
-                                        <span>Quantity:</span>>
-                                        <input type="number" min="1" max="100" value="1">
-                                    </div> -->
-                                    <div class="price"> $45</div>
+                                    <h3 ><?php echo $product['name']?></h3>
+                                    <div class="price"><?php echo $product['price']?></div>
                                     <a href="#" class="btn">Add to Cart</a>
                                 </div>
                             </div>
-                            <div class="swiper-slide box">
-                                <img src="assets/img/outdoor.jpg" alt="indoor">
-                                <div class="content-box">
-                                    <h3>Outdoor plant</h3>
-                                    <div class="price"> $45</div>
-                                    <a href="#" class="btn">Add to Cart</a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide box">
-                                <img src="assets/img/succulent.jpg" alt="indoor">
-                                <div class="content-box">
-                                    <h3>Succulent</h3>
-                                    <div class="price"> $45</div>
-                                    <a href="#" class="btn">Add to Cart</a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide box">
-                                <img src="assets/img/succulent.jpg" alt="indoor">
-                                <div class="content-box">
-                                    <h3>Succulent</h3>
-                                    <div class="price"> $45</div>
-                                    <a href="#" class="btn">Add to Cart</a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide box">
-                                <img src="assets/img/bonsai.jpg" alt="indoor">
-                                <div class="content-box">
-                                    <h3>Bonsai</h3>
-                                    <div class="price"> $45</div>
-                                    <a href="#" class="btn">Add to Cart</a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide box">
-                                <img src="assets/img/bonsai.jpg" alt="indoor">
-                                <div class="content-box">
-                                    <h3>Bonsai</h3>
-                                    <div class="price"> $45</div>
-                                    <a href="#" class="btn">Add to Cart</a>
-                                </div>
-                                <!-- <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div> -->
-                            </div>
-                            <!-- <a href="product-page.html" class="see-more">See More</a>
-                            </div> -->
+                            <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

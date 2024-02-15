@@ -1,5 +1,5 @@
 <?php
-/*
+
 include('dbconn.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
@@ -21,20 +21,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':password', $hashed_password);
         if ($stmt->execute()) {
             $success = 1;
-            header("Refresh: 2; url=/Bloodspot/login.php");
+            header("Refresh: 2; url=/Bloom/login.php");
         }
     }
 }
-
-
-*/
-?> 
+?>  
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Donor Signup</title>
-    <link rel="stylesheet" href="login.css" /> <!-- Link to the CSS file for styling -->
+    <title>Signup</title>
+    <link rel="stylesheet" href="signup.css" /> <!-- Link to the CSS file for styling -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -43,16 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <section id="login-form">
-        <div class="logo">
-            <a href="index.php"><img src="img/bloodspot.png" /> </a>
-        </div>
-        <div class="wrapper">
-            <div class="log_img">
+        <div class="overlay">
+         <div class="logo">
+            <a href="index.php"><img src="assets/img/bloom-high-resolution-logo-transparent.png" /> </a>
+         </div>
+         <div class="wrapper">
+            <!-- <div class="log_img">
                 <img src="img/signupbg.png" />
-            </div>
+            </div> -->
 
             <div class="container">
-                <h1>Donor Signup</h1>
+                <h1>Signup</h1>
                 <div class="message" style="color:red;">
                     <?php echo isset($msg) ? $msg : ''; ?>
                 </div>
@@ -64,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" placeholder="Email Address" />
                     <div id="email-error" class="error-message"></div>
-                    <span class="toggle-password" id="toggle-pass">
+                    <span class="toggle-password1" id="toggle-pass">
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" placeholder="Password" />
                         <span class="eye" onclick="togglePassword()">
@@ -73,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </span>
                     </span>
                     <div id="password-error" class="error-message"></div>
-                    <span class="toggle-password" id="toggle-cpass">
+                    <span class="toggle-password1" id="toggle-cpass">
                         <label for="confirm-password">Confirm Password</label>
                         <input type="password" id="confirm-password" name="confirm_password"
                             placeholder="Confirm Password" />
@@ -91,6 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <!-- including footer section -->
 
+         </div>
         </div>
     </section>
     <?php
@@ -116,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </script>
         <?php
     }
-    ?>
+    ?> 
 </body>
 
 </html>

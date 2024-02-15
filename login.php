@@ -1,38 +1,56 @@
- <?php
- /*
+<?php
+
 session_start();
 include('dbconn.php');
 
 if (isset($_SESSION['user_id'])) {
-    header('location: userdashboard.php');
+    header('location:  user/userdashboard.php');
     exit;
 }
 
+if (isset($_SESSION['admin_id'])) {
+    header('location: admin/admindashboard.php');
+    exit;
+}
+// var_dump($admin);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
     $email = $_POST['email'];
     $password = $_POST['password'];
-    if ($email == '' || $password == '') {
-        $invalid = 'Fill all the field';
-    } else {
 
+    if ($email == '' || $password == '') {
+        $invalid = 'Fill all the fields';
+    } else {
+        // Check in user table
         $stmt = $pdo->prepare("SELECT * FROM user WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (!$user) {
+
+        // Check in admin table
+        $stmt_admin = $pdo->prepare("SELECT * FROM admin WHERE email = :email");
+        $stmt_admin->bindParam(':email', $email);
+        $stmt_admin->execute();
+        $admin = $stmt_admin->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user && !$admin) {
             $invalid = "Email doesn't exist";
-        } elseif (password_verify($password, $user['password'])) {
+        } elseif ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['user_id'];
-            header("Location: userdashboard.php");
+            header("Location: user/userdashboard.php");
+            exit;
+        } elseif ($admin &&  $admin['password']) {
+            $_SESSION['admin_id'] = $admin['admin_id'];
+            header("Location: admin/admindashboard.php");
             exit;
         } else {
             $invalid = "Invalid Credentials!";
         }
     }
 }
-*/
-?> 
+
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Donate Now - Login</title>
+    <title>Login</title>
     <link rel="stylesheet" href="login.css" /> <!-- Include your CSS file here -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -64,9 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
                 <div class="container">
                     <h1>Login</h1>
-                    <!-- <div class="message">
+                    <div class="message">
                         <?php echo isset($invalid) ? $invalid : ''; ?>
-                    </div> -->
+                    </div>
                     <form action="#" method="post">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" placeholder="Enter your email" />
