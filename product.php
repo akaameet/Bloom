@@ -58,7 +58,7 @@ foreach ($products as $product) {
         </form>
     </nav>
 
-    <section class="product">
+    <section class="productPage">
         <div class="product-list">
         <ul>
             <li><a href="#" class="product-link <?php echo ($categoryFilter === 'Indoor') ? 'active' : ''; ?>" data-target="Indoor">Indoor Plants</a></li>
@@ -80,7 +80,7 @@ foreach ($products as $product) {
                         <div class="content-box">
                             <h3><?php echo $product['name']; ?></h3>
                             <p><?php echo $product['categories']; ?></p>
-                            <div class="price"><?php echo $product['price']; ?></div>
+                            <div class="price">Rs.<?php echo $product['price']; ?></div>
                             <a href="#" class="btn">Add to Cart</a>
                         </div>
                     </div>

@@ -127,24 +127,20 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 </section>
         <!-- product section -->
-        <h1 class="heading">New Arrival</h1>
-            <section class="product" id="product">
+        <section class="product" id="product">
+            <h1 class="step_section_title">New Arrival</h1>
                 <div class="swiper product-slider">
                         <div class="swiper-wrapper">
-                        <?php if (empty($products)): ?>
-                          <p class="no-plants-message">No outdoor plants available.</p>
-                          <?php else: ?>
                           <?php foreach ($products as $product): ?>
                             <div class="swiper-slide box">
                                 <img src="assets/img/<?php echo $product['image']?>" alt="indoor">
                                 <div class="content-box">
                                     <h3 ><?php echo $product['name']?></h3>
-                                    <div class="price"><?php echo $product['price']?></div>
+                                    <div class="price">Rs.<?php echo $product['price']?></div>
                                     <a href="#" class="btn">Add to Cart</a>
                                 </div>
                             </div>
                             <?php endforeach; ?>
-                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,7 @@
     --secondary:#5D9943;
     --third: #3f7229;
     --text: #333;
+    --subtext: #524b4b;
     --hue: 152;
     --box-shadow:0 .2rem 1rem rgba(0,0,0.1);
     --title-color:hsl(var(var(--hue),4%,15%));
@@ -39,10 +40,6 @@ body{
     padding-bottom: 2rem;
     font-size: 3.5rem;
     color: var(--third);
-}
-.p{
-    color: var(--text);
-    font-size: 13px;
 }
 /* home section */
 .btn{
@@ -331,7 +328,7 @@ h3 {
     text-decoration: underline;
     transition: all 0.3s ease;
 }
- .product {
+ .productPage {
         display: flex;
         min-height:100dvh;
     }
@@ -416,15 +413,20 @@ h3 {
         object-fit: cover;
         border-radius: 8px; /* Rounded corners for images */
     }
-
+.product-item p{
+    color: var(--subtext);
+    font-size: 13px;
+    font-weight: 550;
+}
 /* .product-item h3 {
         margin-bottom: 5px;
         font-size: 18px;
     } */
     
-.product-item .price {
+.price {
         font-weight: bold;
-        color: #333;
+        font-size: 13px;
+        color: var(--subtext);
     }
     
 /* Contact */
