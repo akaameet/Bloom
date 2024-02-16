@@ -31,9 +31,9 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </label>
                 <ul>
                 <li class="homeLink"><a href="#home">Home</a></li>
-                <li><a href="#category">Category</a></li>
-                <li><a href="product.php">Produts</a></li>
-                <li><a href="#contact">Contacts</a></li>      
+                <li class="categoryLink"><a href="#category">Category</a></li>
+                <li class="productLink"><a href="product.php">Products</a></li>
+                <li class="contactLink"><a href="#contact">Contact</a></li>   
                 </ul>
                 <div class="icons">
                     <div class="fa fa-search" id="search-btn"></div>
@@ -53,7 +53,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="content">
                         <h3>Green Oasis:<span>Explore</span> Our Lush Plants</h3>
                         <p>Transform your space with our lush plants, nurturing both your home and soul</p>
-                        <a href="" class="btn">Shop Now</a>
+                        <a href="product.php" class="btn">Shop Now</a>
                     </div>
                 </div>
             </section>

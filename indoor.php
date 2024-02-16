@@ -51,7 +51,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="product-list">
 
                 <ul>
-                    <li><a href="indoor.php">
+                    <li><a style="background-color: #3f7229;" href="indoor.php">
                             <span class="nav-item">Indoor Plants</span>
                         </a></li>
                         <li><a href="outdoor.php">
