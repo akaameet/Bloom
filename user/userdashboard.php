@@ -38,7 +38,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <ul>
                 <li>
                     <div class="logo">
-                        <img src="../assets/img/bloom-high-resolution-logo-transparent.png" alt="">
+                        <a href="../index.php"><img src="../assets/img/bloom-high-resolution-logo-transparent.png" alt=""></a>
                     </div>
                 </li>
                 <li class="dropdown1">

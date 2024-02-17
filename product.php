@@ -81,7 +81,7 @@ foreach ($products as $product) {
                             <h3><?php echo $product['name']; ?></h3>
                             <p><?php echo $product['categories']; ?></p>
                             <div class="price">Rs.<?php echo $product['price']; ?></div>
-                            <a href="#" class="btn">Add to Cart</a>
+                            <a href="productDetails.php?id=<?php echo $product['product_id']; ?>" class="btn">Add to Cart</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
