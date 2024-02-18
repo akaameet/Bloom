@@ -1,38 +1,64 @@
 <?php
-// Include the database connection file
 include('dbconn.php');
+session_start();
 
-// Check if the form is submitted
+// Check if the user is logged in
+$userLoggedIn = isset($_SESSION['user_id']);
+// Check if either product_id or user_id is present in the URL parameters
+if(isset($_GET['product_id']) && isset($_GET['user_id'])) {
+    $productId = $_GET['product_id'];
+    $userId = $_GET['user_id'];
+    $_SESSION['product_id'] = $productId;
+    $_SESSION['user_id'] = $userId;
+} elseif(isset($_GET['product_id'])) {
+    $productId = $_GET['product_id'];
+    $_SESSION['product_id'] = $productId;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $product_id = $_POST['product_id'];
-    $product_name = $_POST['product_name'];
-    $product_price = $_POST['product_price'];
-    $quantity = $_POST['quantity']; // Ensure this is correctly captured from the form
-
-    // Prepare and execute the SQL query to insert data into the cart table
-    $stmt = $pdo->prepare("INSERT INTO cart (product_id, name, price, quantity) VALUES (:product_id, :product_name, :product_price, :quantity)");
-    $stmt->bindParam(':product_id', $product_id);
-    $stmt->bindParam(':product_name', $product_name);
-    $stmt->bindParam(':product_price', $product_price);
-    $stmt->bindParam(':quantity', $quantity);
-
-    // Execute the statement
-    if ($stmt->execute()) {
-        // If insertion is successful, redirect the user to a success page
-        header("Location: cart_success.php");
-        exit();
-    } else {
-        // If insertion fails, display an error message
-        echo "Error: Unable to add the product to the cart.";
+    // Check if the user is logged in
+    if (isset($_SESSION['user_id'])) {
+        // Retrieve form data
+        $product_id = $_POST['product_id'];
+        $image = $_POST['image'];
+        $product_name = $_POST['product_name'];
+        $product_price = $_POST['product_price'];
+        $quantity = $_POST['quantity']; // Ensure this is correctly captured from the form
+    
+        // Prepare and execute the SQL query to insert data into the cart table
+        $stmt = $pdo->prepare("INSERT INTO cart (user_id, product_id, image, name, price, quantity) VALUES (:user_id, :product_id, :image, :product_name, :product_price, :quantity)");
+        $stmt->bindParam(':user_id', $_SESSION['user_id']);
+        $stmt->bindParam(':product_id', $product_id);
+        $stmt->bindParam(':image', $image);
+        $stmt->bindParam(':product_name', $product_name);
+        $stmt->bindParam(':product_price', $product_price);
+        $stmt->bindParam(':quantity', $quantity);
+        if ($stmt->execute()) {
+            // Form submission successful, show SweetAlert
+            echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer);
+                        toast.addEventListener('mouseleave', Swal.resumeTimer);
+                    }
+                });
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Added to cart successfully'
+                });
+            });
+          </script>";
+        }
     }
 }
-?>
-<?php
-include('dbconn.php');
-if(isset($_GET['id'])) {
-    $productId = $_GET['id'];
-    
+
+if(isset($_SESSION['product_id']) ) {    
     // Fetch product details from the database based on the product ID
  $stmt = $pdo->prepare('SELECT * FROM product WHERE product_id = :id');
     $stmt->bindParam(':id', $productId, PDO::PARAM_INT); // Corrected line
@@ -46,11 +72,10 @@ if($product) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
+    <title><?php echo $product['name'];?></title>
     <link rel="stylesheet" href="productDetails.css">
     <script src="https://kit.fontawesome.com/eda993e11c.js" crossorigin="anonymous"></script>
-    <!-- swiper slide -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -71,9 +96,15 @@ if($product) {
         </ul>
         <div class="icons">
             <!-- <div class="fa fa-search" id="search-btn"></div> -->
-            <div class="fa fa-cart-shopping" id="cart"></div>
-            <a href="login.php"> <div class="fa fa-user" id="login-btn"></div></a>
-        </div>
+            <a href="cart.php"><div class="fa fa-cart-shopping" id="cart"></div></a>
+            <?php if ($userLoggedIn): ?>
+              <!-- Show logout icon if user is logged in -->
+                    <a href="userlogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
+                    <?php else: ?>
+                    <!-- Show login icon if user is not logged in -->
+                    <a href="login.php?session_id=<?php echo $productId; ?>"> <div class="fa fa-user" id="login-btn"></div></a>
+             <?php endif; ?>
+         </div>
         <!-- <form class="search-form">
             <input type="search" id="search-box" placeholder="Search Here...">
             <label for="search-box" class="fa fa-search"></label>
@@ -100,11 +131,12 @@ if($product) {
                 <!-- Add more details here if needed -->
                 <form action="#" method="post">
                     <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                    <input type="hidden" name="image" value="<?php echo $product['image']; ?>">
                     <input type="hidden" name="product_name" value="<?php echo $product['name']; ?>">
                     <input type="hidden" name="product_price" value="<?php echo $product['price']; ?>">
                     <input type="hidden" name="quantity" id="quantity" value="">
                     <!-- Add more hidden input fields if needed -->
-                    <button type="submit" class="btn">Add to Cart</button>
+                    <button type="submit" class="btn" id="add-to-cart-btn">Add to Cart</button>
                 </form>
             </div>
             <div class="product-description">
@@ -152,9 +184,8 @@ if($product) {
             <p class="footer_copy">@Bloom.All rights reserved</p>
         </div>
     </footer>
-        <!-- <script src="Searchscript.js"></script> -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
         // Get the plus and minus buttons and the quantity input field
         var minusButton = document.querySelector('.quantity-btn.minus');
         var plusButton = document.querySelector('.quantity-btn.plus');
@@ -163,7 +194,7 @@ if($product) {
         // Add event listeners to the plus and minus buttons
         minusButton.addEventListener('click', function() {
             // Ensure the quantity is not less than 1
-            if (quantityInput.value > 1) {
+            if (parseInt(quantityInput.value) > 1) {
                 quantityInput.value = parseInt(quantityInput.value) - 1;
             }
         });
@@ -172,16 +203,30 @@ if($product) {
             // Increment the quantity
             quantityInput.value = parseInt(quantityInput.value) + 1;
         });
-    });
 
-    // Function to set the quantity value to the hidden input field before form submission
-    document.querySelector('form').addEventListener('submit', function() {
-        document.getElementById('quantity').value = document.querySelector('.quantity').value;
+        // Form submission handling
+        var addToCartForm = document.querySelector('form');
+
+        addToCartForm.addEventListener('submit', function(event) {
+            // Set the quantity value to the hidden input field before form submission
+            document.getElementById('quantity').value = quantityInput.value;
+
+            // Check if the user is logged in
+            if (!<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // If not logged in, display a SweetAlert message
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'You need to login first!',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            }
+        });
     });
 </script>
-
-
-            </script>
 </body>
 </html>
 <?php 

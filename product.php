@@ -1,11 +1,26 @@
 <?php
 include('dbconn.php');
+session_start();
+
+// Check if the user is logged in
+$userLoggedIn = isset($_SESSION['user_id']);
+
+// Get the category filter from the URL
 $categoryFilter = isset($_GET['category']) ? $_GET['category'] : '';
-//total user
-$stmt = $pdo->prepare('SELECT * FROM product ORDER BY timestamp DESC ');
+
+// Fetch all products from the database
+if (!empty($categoryFilter)) {
+    $stmt = $pdo->prepare('SELECT * FROM product WHERE categories = :category ORDER BY timestamp DESC');
+    $stmt->bindParam(':category', $categoryFilter);
+} else {
+    $stmt = $pdo->prepare('SELECT * FROM product ORDER BY timestamp DESC');
+}
+
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+// Initialize an array to store product counts for each category
 $productCounts = array(
     'Indoor' => 0,
     'Outdoor' => 0,
@@ -50,7 +65,11 @@ foreach ($products as $product) {
         <div class="icons">
             <div class="fa fa-search" id="search-btn"></div>
             <div class="fa fa-cart-shopping" id="cart"></div>
-            <a href="login.php"> <div class="fa fa-user" id="login-btn"></div></a>
+            <?php if ($userLoggedIn): ?>
+                <a href="logout.php"> <div class="fa fa-sign-out" id="logout-btn"></div></a>
+            <?php else: ?>
+                <a href="login.php"> <div class="fa fa-user" id="login-btn"></div></a>
+            <?php endif; ?>
         </div>
         <form class="search-form">
             <input type="search" id="search-box" placeholder="Search Here...">
@@ -60,12 +79,12 @@ foreach ($products as $product) {
 
     <section class="productPage">
         <div class="product-list">
-        <ul>
-            <li><a href="#" class="product-link <?php echo ($categoryFilter === 'Indoor') ? 'active' : ''; ?>" data-target="Indoor">Indoor Plants</a></li>
-            <li><a href="#" class="product-link <?php echo ($categoryFilter === 'Outdoor') ? 'active' : ''; ?>" data-target="Outdoor">Outdoor Plants</a></li>
-            <li><a href="#" class="product-link <?php echo ($categoryFilter === 'Succulent') ? 'active' : ''; ?>" data-target="Succulent">Succulent</a></li>
-            <li><a href="#" class="product-link <?php echo ($categoryFilter === 'Bonsai') ? 'active' : ''; ?>" data-target="Bonsai">Bonsai</a></li>
-        </ul>
+            <ul>
+                <li><a href="product.php?category=Indoor" class="product-link <?php echo ($categoryFilter === 'Indoor') ? 'active' : ''; ?>" data-target="Indoor">Indoor Plants</a></li>
+                <li><a href="product.php?category=Outdoor" class="product-link <?php echo ($categoryFilter === 'Outdoor') ? 'active' : ''; ?>" data-target="Outdoor">Outdoor Plants</a></li>
+                <li><a href="product.php?category=Succulent" class="product-link <?php echo ($categoryFilter === 'Succulent') ? 'active' : ''; ?>" data-target="Succulent">Succulent</a></li>
+                <li><a href="product.php?category=Bonsai" class="product-link <?php echo ($categoryFilter === 'Bonsai') ? 'active' : ''; ?>" data-target="Bonsai">Bonsai</a></li>
+            </ul>
         </div>
         <div class="product-item">
             <?php foreach ($productCounts as $category => $count): ?>
@@ -74,17 +93,17 @@ foreach ($products as $product) {
                 <?php endif; ?>
             <?php endforeach; ?>
 
-                <?php foreach ($products as $product): ?>
-                    <div class="box <?php echo $product['categories']; ?>">
-                        <img src="assets/img/<?php echo $product['image']; ?>" alt="Plant Image">
-                        <div class="content-box">
-                            <h3><?php echo $product['name']; ?></h3>
-                            <p><?php echo $product['categories']; ?></p>
-                            <div class="price">Rs.<?php echo $product['price']; ?></div>
-                            <a href="productDetails.php?id=<?php echo $product['product_id']; ?>" class="btn">Add to Cart</a>
-                        </div>
+            <?php foreach ($products as $product): ?>
+                <div class="box <?php echo $product['categories']; ?>">
+                    <img src="assets/img/<?php echo $product['image']; ?>" alt="Plant Image">
+                    <div class="content-box">
+                        <h3><?php echo $product['name']; ?></h3>
+                        <p><?php echo $product['categories']; ?></p>
+                        <div class="price">Rs.<?php echo $product['price']; ?></div>
+                        <a href="productDetails.php?product_id=<?php echo $product['product_id']; ?>&user_id=<?php echo $userLoggedIn?>" class="btn">Add to Cart</a>
                     </div>
-                <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
         </div>
     </section>
     

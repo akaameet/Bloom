@@ -1,18 +1,22 @@
 <?php
-
 session_start();
 include('dbconn.php');
-
-if (isset($_SESSION['user_id'])) {
-    header('location:  user/userdashboard.php');
-    exit;
-}
 
 if (isset($_SESSION['admin_id'])) {
     header('location: admin/admindashboard.php');
     exit;
 }
-// var_dump($admin);
+
+// Check if the user came from the productDetails page
+if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'productDetails.php') !== false) {
+    $_SESSION['came_from_product_details'] = true;
+
+    // Store the product ID in the session if it's set
+    if (isset($_GET['session_id'])) {
+        $_SESSION['product_id'] = $_GET['session_id'];
+}
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -36,8 +40,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $invalid = "Email doesn't exist";
         } elseif ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['user_id'];
-            header("Location: user/userdashboard.php");
-            exit;
+            if (isset($_SESSION['came_from_product_details']) && $_SESSION['came_from_product_details'] === true) {
+                // Redirect the user back to the productDetails page
+                header("Location: productDetails.php?product_id={$_SESSION['product_id']}&user_id={$_SESSION['user_id']}");
+                exit;
+            } else {
+                header("Location: user/userdashboard.php");
+                exit;
+            }
         } elseif ($admin &&  $admin['password']) {
             $_SESSION['admin_id'] = $admin['admin_id'];
             header("Location: admin/admindashboard.php");
@@ -49,9 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <?php echo isset($invalid) ? $invalid : ''; ?>
                     </div>
                     <form action="#" method="post">
+                    <input type="hidden" name="product_id" value="<?php echo isset($_SESSION['product_id']) ? $_SESSION['product_id'] : ''; ?>">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" placeholder="Enter your email" />
     

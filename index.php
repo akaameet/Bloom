@@ -1,6 +1,10 @@
 <?php
 include('dbconn.php');
-//total user
+session_start();
+
+// Check if the user is logged in
+$userLoggedIn = isset($_SESSION['user_id']);
+//product recently added
 $stmt = $pdo->prepare('SELECT * FROM product ORDER BY timestamp DESC LIMIT 10');
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -37,8 +41,14 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </ul>
                 <div class="icons">
                     <div class="fa fa-search" id="search-btn"></div>
-                    <div class="fa fa-cart-shopping" id="cart"></div>
-                    <a href="login.php"> <div class="fa fa-user" id="login-btn"></div></a>
+                    <a href="cart.php"><div class="fa fa-cart-shopping" id="cart"></div></a>
+                    <?php if ($userLoggedIn): ?>
+            <!-- Show logout icon if user is logged in -->
+                            <a href="userlogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
+                        <?php else: ?>
+                            <!-- Show login icon if user is not logged in -->
+                            <a href="login.php"><div class="fa fa-user" id="login-btn"></div></a>
+                        <?php endif; ?>
                 </div>
                 <form class="search-form">
                     <input type="search" id="search-box" placeholder="Search Here...">
@@ -66,28 +76,28 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <img src="assets/img/inddor.jpg" alt="indoor">
                         <div class="content-box">
                             <h3 >Indoor plant</h3>
-                            <a href="#" class="btn">Shop Now</a>
+                            <a href="product.php?category=Indoor" class="btn">Shop Now</a>
                         </div>
                     </div>
                     <div class="box">
                         <img src="assets/img/outdoor.jpg" alt="indoor">
                         <div class="content-box">
                             <h3>Outdoor plant</h3>
-                            <a href="#" class="btn">Shop Now</a>
+                            <a href="product.php?category=Outdoor" class="btn">Shop Now</a>
                         </div>
                     </div>
                     <div class="box">
                         <img src="assets/img/succulent.jpg" alt="indoor">
                         <div class="content-box">
                             <h3>Succulent</h3>
-                            <a href="#" class="btn">Shop Now</a>
+                            <a href="product.php?category=Succulent" class="btn">Shop Now</a>
                         </div>
                     </div>
                     <div class="box">
                         <img src="assets/img/bonsai.jpg" alt="indoor">
                         <div class="content-box">
                             <h3>Bonsai</h3>
-                            <a href="#" class="btn">Shop Now</a>
+                            <a href="product.php?category=Bonsai" class="btn">Shop Now</a>
                         </div>
                     </div>
         
@@ -137,7 +147,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="content-box">
                                     <h3 ><?php echo $product['name']?></h3>
                                     <div class="price">Rs.<?php echo $product['price']?></div>
-                                    <a href="#" class="btn">Add to Cart</a>
+                                    <a href="productDetails.php?product_id=<?php echo $product['product_id']; ?>&user_id=<?php echo $userLoggedIn?>" class="btn">Add to Cart</a>
                                 </div>
                             </div>
                             <?php endforeach; ?>
