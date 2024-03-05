@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 header("Location: productDetails.php?product_id={$_SESSION['product_id']}&user_id={$_SESSION['user_id']}");
                 exit;
             } else {
-                header("Location: user/userdashboard.php");
+                header("Location: index.php");
                 exit;
             }
         } elseif ($admin &&  $admin['password']) {

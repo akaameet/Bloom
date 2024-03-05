@@ -2,7 +2,6 @@
 include('dbconn.php');
 session_start();
 
-// Check if the user is logged in
 $userLoggedIn = isset($_SESSION['user_id']);
 // Check if either product_id or user_id is present in the URL parameters
 if(isset($_GET['product_id']) && isset($_GET['user_id'])) {
@@ -16,45 +15,45 @@ if(isset($_GET['product_id']) && isset($_GET['user_id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if the user is logged in
     if (isset($_SESSION['user_id'])) {
-        // Retrieve form data
         $product_id = $_POST['product_id'];
         $image = $_POST['image'];
         $product_name = $_POST['product_name'];
         $product_price = $_POST['product_price'];
-        $quantity = $_POST['quantity']; // Ensure this is correctly captured from the form
+        $quantity = $_POST['quantity']; 
     
-        // Prepare and execute the SQL query to insert data into the cart table
-        $stmt = $pdo->prepare("INSERT INTO cart (user_id, product_id, image, name, price, quantity) VALUES (:user_id, :product_id, :image, :product_name, :product_price, :quantity)");
-        $stmt->bindParam(':user_id', $_SESSION['user_id']);
-        $stmt->bindParam(':product_id', $product_id);
-        $stmt->bindParam(':image', $image);
-        $stmt->bindParam(':product_name', $product_name);
-        $stmt->bindParam(':product_price', $product_price);
-        $stmt->bindParam(':quantity', $quantity);
-        if ($stmt->execute()) {
-            // Form submission successful, show SweetAlert
-            echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer);
-                        toast.addEventListener('mouseleave', Swal.resumeTimer);
-                    }
-                });
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Added to cart successfully'
-                });
-            });
-          </script>";
-        }
+ // Check if the same product exists in the cart for the logged-in user
+ $stmt = $pdo->prepare("SELECT * FROM cart WHERE user_id = :user_id AND product_id = :product_id");
+ $stmt->bindParam(':user_id', $_SESSION['user_id']);
+ $stmt->bindParam(':product_id', $product_id);
+ $stmt->execute();
+ $existingProduct = $stmt->fetch(PDO::FETCH_ASSOC);
+ 
+ if ($existingProduct) {
+     // If the same product exists, update the quantity in the cart
+     $newQuantity = $existingProduct['quantity'] + $quantity;
+     $stmt = $pdo->prepare("UPDATE cart SET quantity = :quantity WHERE user_id = :user_id AND product_id = :product_id");
+     $stmt->bindParam(':quantity', $newQuantity);
+     $stmt->bindParam(':user_id', $_SESSION['user_id']);
+     $stmt->bindParam(':product_id', $product_id);
+     $stmt->execute();
+     $success = true;
+     header("Refresh: 2;product.php?product_id={$_SESSION['product_id']}&user_id={$_SESSION['user_id']}");
+ } else {
+     // If the product doesn't exist in the cart, insert it as a new entry
+     $stmt = $pdo->prepare("INSERT INTO cart (user_id, product_id, image, name, price, quantity) VALUES (:user_id, :product_id, :image, :product_name, :product_price, :quantity)");
+     $stmt->bindParam(':user_id', $_SESSION['user_id']);
+     $stmt->bindParam(':product_id', $product_id);
+     $stmt->bindParam(':image', $image);
+     $stmt->bindParam(':product_name', $product_name);
+     $stmt->bindParam(':product_price', $product_price);
+     $stmt->bindParam(':quantity', $quantity);
+     if ($stmt->execute()) {
+         // Show SweetAlert for successful addition to cart
+         $success = true;
+         header("Refresh: 2;product.php?product_id={$_SESSION['product_id']}&user_id={$_SESSION['user_id']}");
+     }
+ }
     }
 }
 
@@ -99,7 +98,7 @@ if($product) {
             <a href="cart.php"><div class="fa fa-cart-shopping" id="cart"></div></a>
             <?php if ($userLoggedIn): ?>
               <!-- Show logout icon if user is logged in -->
-                    <a href="userlogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
+                    <a href="./user/userProfile.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
                     <?php else: ?>
                     <!-- Show login icon if user is not logged in -->
                     <a href="login.php?session_id=<?php echo $productId; ?>"> <div class="fa fa-user" id="login-btn"></div></a>
@@ -185,6 +184,9 @@ if($product) {
         </div>
     </footer>
     <script>
+    // Set a JavaScript variable to indicate whether the user is logged in
+    var userLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+
     document.addEventListener('DOMContentLoaded', function() {
         // Get the plus and minus buttons and the quantity input field
         var minusButton = document.querySelector('.quantity-btn.minus');
@@ -212,7 +214,7 @@ if($product) {
             document.getElementById('quantity').value = quantityInput.value;
 
             // Check if the user is logged in
-            if (!<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
+            if (!userLoggedIn) {
                 event.preventDefault(); // Prevent the default form submission
 
                 // If not logged in, display a SweetAlert message
@@ -221,12 +223,30 @@ if($product) {
                     title: 'Oops...',
                     text: 'You need to login first!',
                     showConfirmButton: false,
-                    timer: 3000
+                    timer: 1500
                 });
             }
         });
+        <?php if (isset($success) && $success): ?>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        });
+        Toast.fire({
+            icon: 'success',
+            title: 'Added to cart successfully'
+        });
+    <?php endif; ?>
     });
 </script>
+
 </body>
 </html>
 <?php 

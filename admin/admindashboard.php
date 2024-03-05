@@ -2,145 +2,155 @@
 include('../dbconn.php');
 session_start();
 
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: ../login.php');
-    exit();
-}
-$u_id = $_SESSION['admin_id'];
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = $_POST['product_name'];
-    $price = $_POST['product_price'];
-    $image = $_POST['product_image'];
-    $subtitle = $_POST['subtitle'];
-    $description = $_POST['description'];
-    $categories = $_POST['categories'];
-    $stock = $_POST['stock'];
-    date_default_timezone_set('Asia/Kathmandu');
-    $timestamp = date('Y-m-d H:i:s');
-    $stmt = $pdo->prepare("INSERT INTO product (name, price, categories, description, image, subtitle, stock, timestamp)
-    VALUES (:name, :price, :categories, :description, :image, :subtitle, :stock, :timestamp)");
-    $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':price', $price);
-    $stmt->bindParam(':categories', $categories); 
-    $stmt->bindParam(':description', $description);
-    $stmt->bindParam(':image', $image);
-    $stmt->bindParam(':subtitle', $subtitle);
-    $stmt->bindParam(':stock', $stock);
-    $stmt->bindParam(':timestamp', $timestamp);
+// Check if the user is logged in
+$userLoggedIn = isset($_SESSION['admin_id']);
 
-    if ($stmt->execute()) {
-    header("Location: admindashboard.php?success=1");
-}
-}
+// Retrieve total plants
+$stmt = $pdo->prepare("SELECT COUNT(*) AS total_plants FROM product");
+$stmt->execute();
+$total_plants = $stmt->fetch(PDO::FETCH_ASSOC)['total_plants'];
 
+//Retrieve total user
+$stmt = $pdo->prepare("SELECT COUNT(*) AS total_user FROM user");
+$stmt->execute();
+$total_user = $stmt->fetch(PDO::FETCH_ASSOC)['total_user'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>user dashboard</title>
-    <link rel="stylesheet" href="admin.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <script src="https://kit.fontawesome.com/eda993e11c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-
 <body>
-    <div class="container">
-     <nav>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.php">
+                <img src="../assets/img/bloom-high-resolution-logo-transparent.png"/> 
+            </a>
+        </div>
+        <input type="checkbox" id="click">
+        <label for="click" class="menu-btn">
+            <i class="fa-solid fa-bars"></i>
+        </label>
+        <ul>
+            <!-- <li class="homeLink"><a href="index.php#home">Home</a></li>
+            <li><a href="index.php#category">Category</a></li>
+            <li class="productPage-hover"><a href="product.php">Products</a></li> -->
+            <li><a>Dashboard<a></li>     
+        </ul>
+        <div class="icons">
+            <!-- <div class="fa fa-search" id="search-btn"></div> -->
+            <div class="fa fa-cart-shopping" id="cart" style="background-color: #5D9943; color: white;"></div>
+            <?php if ($userLoggedIn): ?>
+              <!-- Show logout icon if user is logged in -->
+                    <a href="adminLogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
+                    <?php else: ?>
+                    <!-- Show login icon if user is not logged in -->
+                    <a href="login.php?"> <div class="fa fa-user" id="login-btn"></div></a>
+             <?php endif; ?>
+         </div>
+        <!-- <form class="search-form">
+            <input type="search" id="search-box" placeholder="Search Here...">
+            <label for="search-box" class="fa fa-search"></label>
+        </form> -->
+    </nav>
+    <section class="productPage">
+        <div class="product-list">
             <ul>
-                <li>
+                <!-- <li>
                     <div class="logo">
                         <img src="../assets/img/bloom-high-resolution-logo-transparent.png" alt="">
                     </div>
-                </li>
-                <li class="dropdown1">
+                </li> -->
+                <!-- <li class="dropdown1">
                     <a id="categories-toggle"  href="#"> <i class="fas fa-list"></i> 
                          <span class="nav-item"> Categories</span></a>
                     <div id="categories-dropdown" class="dropdown1-content">
                         <a href="#indoor-plants">Indoor Plants</a>
                         <a href="#outdoor-plants">Outdoor Plants</a>
                     </div>
-                </li>
-                <li><a href="profile.php">
+                </li> -->
+                <li><a href="admindashboard.php" class="active" >
                         <i class="fas fa-user"></i>
-                        <span class="nav-item">Profile</span>
+                        <span class="nav-item">Dashboard</span>
                     </a></li>
-                <li><a href="addnew.php">
+                <li><a href="addProduct.php">
                         <i class="fas fa-user"></i>
-                        <span class="nav-item">Update</span>
+                        <span class="nav-item">New Product</span>
+                    </a></li>
+                <li><a href="adminProduct.php">
+                        <i class="fas fa-user"></i>
+                        <span class="nav-item">Product</span>
                     </a></li>
                 <li><a href="bloodstock.php">
                         <i class="fa-solid fa-shopping-cart"></i>
-                        <span class="nav-item">Cart</span>
+                        <span class="nav-item">Profile</span>
                     </a></li>
             </ul>
-     </nav>
-
-
-        <!-- container section started for donate -->
-
-        <section class="main">
-            <div class="main-top">
-                <h1>New Arrival</h1>
-                <!-- addding dropdown -->
-                <div class="dropdown">
-                    <button class="dropbtn"><span>
-                            
-                        </span><i class="fas fa-user-cog"></i></button>
-                    <div class="dropdown-content">
-                        <a href="setting.php">Edit Profile</a>
-                        <a href="../userlogout.php">Logout</a>
-                    </div>
-                </div>
+         
+        </div>
+ 
+            <!-- <div class="rounded-box">
+                <h2>Total Sales: $<?php echo $total_sales; ?></h2>
             </div>
-       <div class="new_product">    
-              <div class="admin-product-form-container">
-                  <form id="form" action="#" method="POST">
-                    <h3>Add a new product</h3>
-                    <input type="text" placeholder="Enter a product name" name="product_name" class="box">
-                    <input type="file"  accept="image/png,image/jpeg,image/jpg" name="product_image" class="box">
-                    <input type="number" placeholder="Enter a product price" name="product_price" class="box">
-                    <input type="text" placeholder="Subtitle" name="subtitle" class="box">
-                    <input type="text" placeholder="Categories" name="categories" class="box">
-                    <input type="number" placeholder="Enter a stock" name="stock" class="box">
-                    <textarea id="description" name="description" rows="4" cols="50" class="box"required></textarea>
-                    <input type="submit" class="btn" name="add_product" value="add_product">
-                 </form>
+            <div class="rounded-box">
+                <h2>Total Quantity: <?php echo $total_quantity; ?></h2>
+            </div> -->
+
+        <div class="product-item">
+        <div class="box">
+             <div class="step_number"><img src="../assets/img/plant_icon-transformed.png" style="width: 40px; height: 40px;"></div>
+                <h2>Total Plants: <?php echo $total_plants; ?></h2>
+            </div>
+            <div class="box">
+            <div class="step_number"><i class="fa-solid fa-user"></i></div>
+                <h2>Total User: <?php echo $total_user; ?></h2>
+            </div>
                     
-            </div>
         </div>
     </section>
-    </div>
-    <?php
-    @$success = $_GET['success'];
-    if(null != $success && $success == 1) {
-        ?>
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener("mouseenter", Swal.stopTimer)
-                    toast.addEventListener("mouseleave", Swal.resumeTimer)
-                }
-            })
+ 
 
-            Toast.fire({
-                icon: "success",
-                title: "Data Submitted Successfully"
-            });
-        </script>
-        <?php
-        }
-        ?>
+    <footer class="footer">
+        <div class="footer_container container grid">
+            <div class="footer_logo">
+                <img src="../assets/img/bloom-high-resolution-logo-transparent.png"/> 
+                <p>Feel free to follow us on Our Social <br>Media Handlers. All the links are <br>Given below </p>
+                <div class="footer_social">
+                    <a href="" class="footer_social-link">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="" class="footer_social-link">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="" class="footer_social-link">
+                        <i class="fa-brands fa-x-twitter"></i>r 
+                    </a>
+                </div>
+            </div>
+            <div class="footer_content">
+                <h3 class="footer_title">Contact</h3>
+                <ul class="footer_data">
+                    <li class="footer_info">+977 9841000000</li>
+                    <li class="footer_info">bloom@gmail.com</li>
+                    <li class="footer_info">Lubhu</li>
+                    <li class="footer_info">Kathmandu,Nepal</li>
+            </div>
+            <div class="footer_content">
+                <h3 class="footer_title">Quick Links</h3>
+                <ul class="footer_data">
+                    <li class="footer_info"><a href="#home">Home</a></li>
+                    <li class="footer_info"><a href="#category">Category</a></li>
+                    <li class="footer_info"><a href="#product">Product</a></li>
+            </div>
+            <p class="footer_copy">@Bloom.All rights reserved</p>
+        </div>
+    </footer>
+
+
 </body>
-
 </html>

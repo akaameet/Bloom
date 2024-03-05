@@ -5,6 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $address = 'Unregistered';
+    $phone = 'Unregistered';
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Check if the email already exists in the database
@@ -15,10 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($emailCount > 0) {
         $msg = 'Email already exit.';
     } else {
-        $stmt = $pdo->prepare('INSERT INTO user(name,email,password) VALUES (:name,:email,:password)');
+        $stmt = $pdo->prepare('INSERT INTO user(name,email,password,address,phone) VALUES (:name,:email,:password,:address,:phone)');
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $hashed_password);
+        $stmt->bindParam(':address', $address);
+        $stmt->bindParam(':phone', $phone);
         if ($stmt->execute()) {
             $success = 1;
             header("Refresh: 2; url=/Bloom/login.php");
@@ -54,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="message" style="color:red;">
                     <?php echo isset($msg) ? $msg : ''; ?>
                 </div>
-                <form id="form" action="#" method="post">
+                <form id="sign_up" action="#" method="post">
 
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" placeholder="Full Name" />
@@ -65,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <span class="toggle-password1" id="toggle-pass">
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" placeholder="Password" />
-                        <span class="eye" onclick="togglePassword()">
+                        <span class="eye" onclick="toggleNPassword()">
                             <i id="hideopen" class="fa-solid fa-eye" style="color: #849a9a;"></i>
                             <i id="hideclose" class="fa-solid fa-eye-slash" style="color: #849a9a;"></i>
                         </span>
@@ -73,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div id="password-error" class="error-message"></div>
                     <span class="toggle-password1" id="toggle-cpass">
                         <label for="confirm-password">Confirm Password</label>
-                        <input type="password" id="confirm-password" name="confirm_password"
+                        <input type="password" id="confirm_password" name="confirm_password"
                             placeholder="Confirm Password" />
                         <span class="eye" onclick="toggleCPassword()">
                             <i id="Chideopen" class="fa-solid fa-eye" style="color: #849a9a;"></i>

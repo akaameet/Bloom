@@ -1,558 +1,607 @@
+/*=============== GOOGLE FONTS ===============*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    box-sizing: border-box;
-    font-family: "poppins", sans-serif;
-}
-
-/* root variable */
-:root {
-    --bg-color: #ffffff;
-    --text-color: #5D9943;
-    --second-color: #a09dab;
-    --big-font: 5rem;
-    --h2-font: 3rem;
-    --p-font: 1.1rem;
-    --primary: #8BC53F;
+:root{
+     --primary: #8BC53F;
     --secondary:#5D9943;
     --third: #3f7229;
-    /* --main-color: rgb(234, 28, 28); */
-
+    --text: #333;
+    --subtext: #524b4b;
+    --hue: 152;
+    --box-shadow:0 .2rem 1rem rgba(0,0,0.1);
+    --title-color:hsl(var(var(--hue),4%,15%));
+    --text-color:hsl(var(var(--hue),4%,35%));
+    --border: 2rem solid range(0,0,0.1);
+    --outline: 2rem solid range(0,0,0.1);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+}
+body{
+    background: #eee;
 }
 
-
-body {
-    background: var(--bg-color);
-}
-
-.container {
-    display: flex;
-
-}
-.main-top{
-   color: var(--secondary);
-}
-nav {
-    position: relative;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    background-color: var(--bg-color);
-    min-width: 262px;
-    overflow: auto;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-    min-height: 100vh;
-    line-height: 2rem;
-    font-weight: bold;
-    color:var(--secondary);
-
-    /* making sticky */
-}
-
-.logo {
+/* .container {
+    margin: 0 auto;
+    max-width: 1100px;
+} */
+.heading{
+    /* display: flex; */
     text-align: center;
-    display: flex;
-    margin: 50px 0 0 60px;
-    width: auto;
+    padding: 50px 0;
+    padding-bottom: 2rem;
+    font-size: 3.5rem;
+    color: var(--third);
 }
+/* home section */
+.button-container {
+    text-align: center;
+}
+.btn{
+    border: none; 
+    margin-top: 1rem;
+    display: inline-block;
+    padding: .8rem 3rem;
+    font-size: 1.7rem;
+    /* font-weight: ; */
+    border-radius: .5rem;
+    color:#eee;
+    text-decoration: none;
+    cursor:pointer;
+    width: 100%;
+    background: #708d4b;
+}
+.btn:hover{
+    color: #fff;
+    background: #3f7229;
+    transition: .2s;
+}
+nav{
+    height: 70px;
+    background: #fff;
+    display:flex;
+    align-items: center;
+    justify-content:space-between;
+    padding: 0px 50px;
+    box-shadow: var(--box-shadow);
+    position: static; /* Fix the navigation bar at the top */
+    width: 100%; /* Take up the full width of the viewport */
+    z-index: 1000; /* Ensure the navigation bar appears above other content */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); /* Add shadow for box effect */
+    transition: all 300ms ease-in;
+}
+
+@keyframes animateNav {
+    from {transform: translateY(-100px); opacity: 0;}
+    to {opacity: translateY(0); opacity: 1;}
+}
+.stick-nav {
+    position: sticky;
+    top: 0;
+    right: 0;
+    /* transition: all 1000ms ease-in; */
+    animation-name: animateNav;
+    animation-duration: .4s;
+    animation-timing-function: ease-in-out;
+}
+
 
 .logo img {
-    position: absolute;
-    top: 20px;
-    left: 50px;
-    height: 40px;
     width: auto;
-}
-
-.logo span {
-    color:var(--secondary);
-    font-weight: bold;
-    padding-left: 15px;
-    font-size: 18px;
-    text-transform: uppercase;
-}
-
-a {
-    position: relative;
-    color: var(--text-color);
-    font-size: 14px;
-    display: table;
-    width: 220px;
-    padding: 7px;
-    margin: 10px 20px;
-    transition: all .3s;
-
-}
-
-.container nav a:hover,
-a.active {
-    transform: translateY(-5px);
-    box-shadow: 0.5px 0.5px 7.5px 0px rgba(23, 133, 23, 0.7);
-    border-radius: 25px;
-    font-weight: bold;
-    color: var(--third);
-
-}
-
-
-
-nav.fas {
-    position: relative;
-    width: 70px;
     height: 40px;
-    top: 14px;
-    font-size: 20px;
-    text-align: center;
 }
-
-.nav-item {
-    position: relative;
-    top: 0px;
-    margin-left: 20px;
-    font-size: 20px;
-}
-
-
-.logout {
-    position: absolute;
-    bottom: 10px;
-}
-
-
-
-/* main section started */
-
-
-.main {
-    position: relative;
-    margin-left: 0;
-    width: 100%;
-
-
-
-}
-
-.main-top {
+nav ul{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    background: var(--main-color);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-    height: 75px;
+    list-style: none;
+}
+
+nav ul li{
+    margin: 0 5px;
+}
+nav ul li a{
     color: var(--primary);
-
-
-    position: relative;
-
-
-}
-
-.main-top h1 {
-    text-align: right;
-}
-
-/* notification section */
-.bell {
-    display: flex;
-    position: absolute;
-    right: 200px;
-    font-size: 25px;
-}
-
-.dropdown {
-    /* position: relative;
-    display: inline-block; */
-    position: absolute;
-    right: 0;
-    margin: 10px 10px;
-    color: var(--secondary);
-    cursor: pointer;
-    font-size: 25px;
-}
-
-.dropbtn {
-    background-color: transparent;
-    color: var(--primary);
-    padding: 10px;
-    font-size: 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    color: var(--secondary);
-    min-width: 40px;
-    /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
-    z-index: 1;
-    right: 0;
-    background: var(--third);
-    border-radius: 15px;
-}
-
-.dropdown-content a {
-    color: #eee;
-    padding: 10px 8px;
+    font-size: 19px;
+    font-weight: 650;
+    letter-spacing: 1px;
+    padding:8px 10px;
+    /* border-radius: 5px; */
     text-decoration: none;
-    display: block;
-    width: 100px;
-    text-align: center;
-    margin: 10px;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 5px;
-    transition: ease .20s;
+    transition: all 0.3s ease;
+}
+/* nav ul li a.active */
+nav ul li a:hover
+{
+    color: var(--secondary);
+    background: #fff;
+    text-decoration: underline;
+    transition: all 0.3s ease;
+}
+nav ul li.active a
+{
+    color: var(--secondary);
+    background: #fff;
+    text-decoration: underline;
+    transition: all 0.3s ease;
 }
 
-.dropdown-content a:hover {
-    /* background-color: #f1f1f1; */
-    transform: scale(1.2);
-
-
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
- /* submenu sub categories */
-.dropdown1-content {
+nav .menu-btn i{
+    color: var(--primary);
+    font-size: 22px;
+    cursor: pointer;
     display: none;
 }
 
-.dropdown1-content.show {
-    display: block;
+#click{
+    display: none;
 }
 
-
-
-
-/* donate blood form css */
-.donate-blood {
-    max-width: 400px;
-    max-height: auto;
-    margin: 10px auto;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); */
-    box-shadow: 0 2px 5px rgba(197, 10, 10, 0.1);
-
+nav .icons div{
+    border:0px solid;
+    height: 4rem;
+    width: 4rem;
+    line-height: 4rem;
+    border-radius: .5rem;
+    background: #eee;
+    color: black;
+    font-size: 15px;
+    margin-right: .3rem;
+    text-align: center;
+    cursor: pointer ;
 }
 
-
-/* Container for the donor form */
-.wrapper {
-    max-width: 800px;
-    max-height: auto;
-    margin: 10px auto;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    /* box-shadow: 0px 0px 5px rgba(147, 1, 1, 0.2); */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+nav .icons div:hover{
+    background: var(--secondary);
+    color:#fff;
 }
 
-/* input for form */
-.request-form {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.group {
-    margin-bottom: 20px;
-    margin-right: 50px;
-    text-align: left;
-    flex: 0 0 calc(50% - 10px);
-    margin: 5px;
-    padding: 0px;
-}
-
-.message {
-    grid-column: 1/-1;
-}
-
-#message {
-    width: 50%;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
+nav .search-form{
     border: none;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-    font-weight: 600;
+    position: absolute;
+    top:80px; 
+    right: -100%;
+    width: 30rem;
+    height: 3rem;
+    background: #fff;
+    border-radius: .4rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    box-shadow: var(--box-shadow); 
+}
+nav .search-form.active{
+    right: 1rem;
+    transition: .4s linear;
+}
+
+nav .search-form input{
+    border: none;
+    outline: none;
+    height:  100%;
+    width: 100%;
+    background: none;
+    text-transform:none;
+    padding: 0 1rem;
+}
+nav .search-form label{
+    font-size: 1.5rem;
+    padding-right: 1rem;
+    color:black;
+    cursor: pointer;
+}
+nav .search-form label:hover{
+    color: var(--secondary);
+}
+
+
+/* product section */
+.productPage-hover a{
+    color: var(--secondary);
+    background: #fff;
+    text-decoration: underline;
+    transition: all 0.3s ease;
+}
+ .productPage {
+        display: flex;
+        min-height:100dvh;
+    }
+.product-list {
+    box-shadow: 5px 0 10px -5px rgba(0, 0, 0, 0.6), /* Right side shadow */
+               -5px 0 10px -5px rgba(0, 0, 0, 0.6);  /*Left side shadow */
+}
+
+.product-list ul {
+        list-style: none;
+        width:20rem;
+        /* background: hsl(0, 23%, 84%); */
+        padding: 2rem 0; /* Remove padding to avoid extra spacing */
+        margin: 0;
+    }
+    
+.product-list ul li {
+        margin-bottom: 10px; /* Adjust margin between list items */
+    }
+    
+.product-list ul li a {
+        text-decoration: none;
+        color: #3c3737;
+        font-weight: 600;
+        font-size: 15px;
+        /* color: #333; */
+        text-align: center;
+        display: block; /* Change to block to fill the full width */
+        padding: 10px 15px;
+        background-color: #f9f9f9; /* Background color for list items */
+        /* border-radius: 5px; */
+        transition: background-color 0.3s ease;
+    }
+    
+.product-list  ul li a:hover {
+        background-color: var(--third);
+        color: white; /* Background color change on hover */
+    }
+.product-list ul li a.active1{
+        background-color: var(--third);
+        color: white; 
+}
+       
+.product-list ul li a .nav-item {
+        font-size: 16px;
+    }
+    
+
+.profile {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start; /* Align items at the start vertically */
+        width: calc(100vw - 3.75rem);
+        padding: 20px;
+    }
+    
+ .profile-container {
+     max-width: calc(60% - 1.5rem); 
+ }
+ 
+ .profile-info {
+     margin-top: 20px;
+     text-align: left;
+ }
+ .profile-info h2{
+    font-size: 25px;;
+ }
+ .profile-info strong {
+     color: var(--title-color);
+     font-size: 20px;
+ }
+ 
+ .profile-info p {
+     margin: 10px 0;
+     color:  #333;
+     font-size: 18px;
+     font-weight: 500;
+ }
+ 
+ .edit-profile {
+     margin-top: 5rem;
+ }
+ 
+ .edit-profile a {
+     padding: 10px 20px;
+     font-size: 16px;
+     background-color: var(--secondary);
+     text-decoration: none;
+     color: white;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     align-self: flex-end; /* Align the button to the end of its container */
+ }
+ 
+ .edit-profile a:hover {
+     background-color: var(--third);
+     /* font-size: 18px; */
+ }
+    
+/*update*/
+.update_container {
+    display: flex;
+    flex-direction: column;
+    /* max-width: calc(900px - 1.5rem); */
+    width: calc(100vw - 3.75rem);
+    padding: 20px;
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+.update_container h2 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
     font-size: 15px;
 }
 
-/* Form title */
-h2 {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-    position: sticky;
-}
-
-/* Form labels */
-label {
-    display: flex;
-    font-size: 18px;
-    margin: auto;
-    font-weight: 600;
-}
-
-/* gender and blood group in one row */
-.gender {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.gender label {
-    flex: 1;
-    margin-right: 10px;
-}
-
-.gender select {
-    flex: 2;
-    margin-right: 10px;
-}
-
-/* btn section */
-
-/* Added styles for button container */
-.button-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    grid-column: 1/-1;
-
-}
-
-
-
-.btn {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
+input
+ {
     width: 50%;
     padding: 10px;
-    text-align: center;
-    background-color: #ff2d2d;
-    color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* box-sizing: border-box; */
     font-size: 16px;
+    margin-bottom: 10px;
+}
+input:focus {
+    outline: none;
+    border: 2px solid var(--secondary);
+}
+/* Increase button size */
+
+
+.gender-options label {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 13px; /* Increase font size */
+    padding: 5px 10px; /* Increase padding */
+}
+
+
+.gender-options input[type="radio"] + label {
+    color: var(--text); /* Lighter background color */
+}
+
+.gender-options input[type="radio"]:checked + label {
+    color: var(--subtext); /* Slightly darker when selected */
+}
+.gender-options input[type="radio"]:checked {
+    color: black;
+}
+
+
+
+button[type="submit"] {
+    background-color: var(--secondary);
+    color: white;
+    padding: 12px 30px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    width: 40%;
+    transition: background-color 0.3s ease;
 }
 
-/* Form submit button on hover */
-.btn:hover {
-    background-color: #f00;
+button[type="submit"]:hover {
+    background-color: var(--third);
 }
 
-.btn-container {
+/* change password */
+.change_password_container {
+    /* Adjust width and padding as needed */
+    width: 40%; /* Adjust the width of the change password container */
+    padding: 20px;
+    margin-top: 6rem;
+}
+
+input[type="password"]
+ {
     width: 100%;
-    text-align: center;
-
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* box-sizing: border-box; */
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+input[type="password"]:focus{
+    outline: none;
+    border: 2px solid var(--secondary);
 }
 
+.swal-title,
+.swal-text,
+.swal-button {
+    font-family: 'Poppins', sans-serif; 
+    /* font-size: 30px; */
+}
 
-
-/* blood stock section */
-
-.blood_type {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    width: auto;
+.swal2-popup {
+    font-size: 16px; /* Adjust the font size as needed */
+    width: 500px; /* Adjust the width as needed */
     height: auto;
 }
 
-.blood_type .card {
-    flex-direction: wrap;
-    width: 25%;
-    margin: 25px;
+/* footer section */
+.footer{
     background: #fff;
-    text-align: center;
-    border-radius: 20px;
-    padding: 20px;
-    transition: ease.50s;
-    cursor: pointer;
-    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+.footer_container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(200px, 1fr)); /* Adjust column width as needed */
+    gap: 1.5rem;
+     justify-items: center; 
+     padding: 2rem 10rem; 
+    /* border: 2px solid green; */
+}
+.footer_container ul{
+    list-style: none;
 }
 
-.blood_type .card:hover {
-    background: #ffffff;
-    /* box-shadow: 18px 0px 87px 0px rgba(118, 22, 22, 0.7); */
-
-    box-shadow: 0.5px 0.5px 7.5px 0px rgba(219, 6, 6, 0.7);
-
-    border-radius: 12px;
-    transform: scale(1.1);
+.footer_logo {
+    grid-column: 1 / 3;
+    justify-self: start;
 }
-
-.blood_type .card h3 {
+.footer_logo img{
     width: auto;
-    margin: 10px;
-    text-transform: capitalize;
-    box-sizing: border-box;
-    overflow: auto;
+    height: 30px;
+}
+.footer_logo p{
+    font-size: 1.2rem;
+    color:#333;
+}
+.footer_social{
+    display: inline-flex;
+    column-gap: .75rem;
+}
+.footer_social-link{
+    font-size: 2rem;
+    color: var(--text);
+    transition: .3s;
+    height: 3rem;
+    width: 3rem;
+    border-radius: .5rem;
+    /* margin-left: .2rem; */
+    background: #eee;
+    text-align: center;
+}
+.footer_social-link:hover{
+    background: var(--third);
+    color: white;
+    transform: translateY(-.25rem);
+}
+.footer_title{
+    color: var(--secondary);
+}
+.footer_data{
+    display: grid;
+    row-gap: .75rem;
+
+}
+.footer_info{
+    font-size: 1.5rem;
+    color: var(--text);
+}
+.footer_info a{
+    text-decoration: none;
+    color: var(--text);
+}
+.footer_info:hover{
+    color:#3f7229;
+    transition: .3s all ease-in-out;
+    transform: translateX(.5rem);
+}
+.footer_info a:hover{
+    color:#3f7229;
+}
+.footer_copy {
+    margin-top: 2rem;
+    font-size: 1.3rem;
+    padding: .5rem;
+    color: var(--text);
+    width: max-content;
+    grid-column: 1 / -1;
+
 }
 
-.blood_type p {
-    font-size: 20px;
-}
-
-.blood_type.card button {
-    background: orangered;
-    color: #fff;
-    padding: 7px 15px;
-    border-radius: 10px;
-    margin-top: 15px;
-    cursor: pointer;
-}
-
-.blood_type .card button:hover {
-    background-color: rgb(322, 145, 33, 355);
-}
-
-.blood_type.card i {
-    font-size: 32px;
-    padding: 10px;
-}
-
-/* error message */
 .error-message {
     font-size: 14px;
     margin-bottom: 5px;
     color: rgb(182, 35, 35);
 }
-
-/* history for donar and requester */
-
-/* donor list table */
-.user-history {
-    background-color: #fffb;
-    border-radius: 6px;
-    overflow: auto;
-    margin: 15px;
-    text-align: center;
+.toggle-password input[type="password"],
+.toggle-password input[type="text"] {
+    width: 100%; /* Set your desired width */
+    /* Add any other styling properties as needed */
+}
+#hideclose,
+#Chideclose {
+    display: none;
 }
 
-.donate-history {
-    background: var(--bg-color);
-    margin: 50px;
+.toggle-password {
+    position: relative;
+    margin-top: 1rem;
 }
 
-.request-history {
-    background: var(--bg-color);
-    margin: 50px;
+.toggle-password i {
+    position: absolute;
+    right: 10px;
+    top: 38px;
 }
 
-
-
-table,
-th,
-td {
-    padding: .5rem;
-    border-collapse: collapse;
-    border: 2px solid #CF1217;
-    text-align: center;
-    font-weight: bold;
-
+ /* product page css */
+ /* CSS for Categories Dropdown */
+.dropdown1 {
+    position: relative;
+    display: inline-block;
 }
 
-
-main.table {
-    width: auto;
-    height: auto;
-
-    backdrop-filter: blur(45px);
-    box-shadow: 0 .4rem .8rem rgb(95, 23, 23);
-    border-radius: 1rem;
-    overflow: hidden;
+.dropdown1-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
-.table_header {
-    width: 100%;
-    height: 5%;
-    background-color: var(--bg-color);
-    padding: .8rem 1rem;
-    text-align: center;
+.dropdown1-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
 }
 
-.table_body {
-    width: 95%;
-    max-height: 89%;
-    background-color: #fffb;
-    margin: .8rem auto;
-    border-radius: 6px;
-    overflow: auto;
+.dropdown1-content a:hover {
+    background-color: #f1f1f1;
 }
 
-table {
-    width: 100%;
-
+.dropdown1:hover .dropdown1-content {
+    display: block;
 }
 
-/* 
-.user-img {
-    margin: 5px;
-} */
-td img {
-    width: 45px;
-    height: 45px;
-    margin-right: .5rem;
-    border-radius: 50%;
+@media(max-width:940px){
+    .overlay{
+        padding: 2rem ;
+    }
+    .logo img {
+        height: 32px;
+    }
+    nav .menu-btn i{
+        display: block;
+    }
+    #click:checked ~ .menu-btn i:before{
+        content: "\f00d";
+    }
+    nav ul{
+        position: fixed;
+        top: 80px;
+        left:-100%;
+        background: #fff;
+        height: 100vh;
+        width: 100%;
+        display: block;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    #click:checked ~ ul{
+        left: 0%;
 
-    vertical-align: middle;
+    }
+    nav ul li{
+        margin: 40px 0;
+    }
+    nav ul li a{
+        font-size: 20px;
+        display: block;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active{
+    color: rgb(13, 121, 54);
+    background: none;
 }
-
-thead th {
-    position: sticky;
-    top: 0;
-    left: 0;
-    background-color: var(--main-color);
-    color: white;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #0000000b;
-}
-
-tbody tr:hover {
-    background-color: #fff6;
-}
-
-/*swal error button*/
-.swal-btn-red {
-    background-color: red;
-    /* Set the background color to red */
-    color: white;
-    /* Set the text color to white */
-    padding: 10px 20px;
-    /* Adjust the padding to increase button size */
-    font-size: 18px;
-    /* Adjust the font size to increase button size */
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px rgba(255, 0, 0, 0.5);
-    transition: background-color 0.3s ease;
-}
-
-.swal-btn-red:hover {
-    background-color: rgba(219, 33, 33, 0.877) !important;
 }

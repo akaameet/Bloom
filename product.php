@@ -27,10 +27,9 @@ $productCounts = array(
     'Succulent' => 0,
     'Bonsai' => 0
 );
-
 // Count the number of products in each category
 foreach ($products as $product) {
-    $category = $product['categories'];
+    $category = trim($product['categories']); 
     $productCounts[$category]++;
 }
 ?>
@@ -66,7 +65,7 @@ foreach ($products as $product) {
             <div class="fa fa-search" id="search-btn"></div>
             <div class="fa fa-cart-shopping" id="cart"></div>
             <?php if ($userLoggedIn): ?>
-                <a href="logout.php"> <div class="fa fa-sign-out" id="logout-btn"></div></a>
+                <a href="./user/userProfile.php"> <div class="fa fa-sign-out" id="logout-btn"></div></a>
             <?php else: ?>
                 <a href="login.php"> <div class="fa fa-user" id="login-btn"></div></a>
             <?php endif; ?>
@@ -100,7 +99,7 @@ foreach ($products as $product) {
                         <h3><?php echo $product['name']; ?></h3>
                         <p><?php echo $product['categories']; ?></p>
                         <div class="price">Rs.<?php echo $product['price']; ?></div>
-                        <a href="productDetails.php?product_id=<?php echo $product['product_id']; ?>&user_id=<?php echo $userLoggedIn?>" class="btn">Add to Cart</a>
+                        <a href="productDetails.php?product_id=<?php echo $product['product_id']; ?><?php echo isset($_SESSION['user_id']) ? '&user_id='.$_SESSION['user_id'] : ''; ?>" class="btn">Add to Cart</a>
                     </div>
                 </div>
             <?php endforeach; ?>

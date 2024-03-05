@@ -1,30 +1,39 @@
 //search btn******************************************************
 // Get the search icon element by ID
-    const searchIcon = document.getElementById('search-btn');
-    // Get the search form element by class
-    const searchForm = document.querySelector(".search-form");
-    // Add event listener to the search icon for click event
-    searchIcon.addEventListener("click", () => {
-        // Add 'active' class to the search form when the search icon is clicked
-        searchForm.classList.add('active');
-    });
+const searchIcon = document.getElementById('search-btn');
+const searchForm = document.querySelector(".search-form");
+const searchBox = document.getElementById("search-box");
 
-    // Add event listener to the document for click event
-    document.addEventListener("click", function(event) {
-        // Get the search box element by ID
-        const searchBox = document.getElementById("search-box");
-        // Check if the event target is the search form
-        if (event.target == searchForm) {
-            console.log("Is search form...");
-        }
+// Toggle the visibility of the search form when clicking the search icon
+searchIcon.addEventListener("click", () => {
+    searchForm.classList.toggle('active');
+});
 
-        // Check if the click event target is not the search icon or the search input box
-        if (event.target !== searchIcon && event.target !== searchBox) {
-            // Remove 'active' class from the search form to hide it
-            searchForm.classList.remove('active');
-            console.log("outside the form...");
+// Hide the search form when clicking outside of it
+document.addEventListener("click", function(event) {
+    if (event.target !== searchIcon && event.target !== searchBox) {
+        searchForm.classList.remove('active');
+    }
+});
+
+// Enable form submission when pressing the Enter key
+searchBox.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the default form submission
+        
+        // Extract the search term from the search input box
+        const searchTerm = searchBox.value.trim();
+        
+        // Check if the search term is not empty
+        if (searchTerm !== '') {
+            // Redirect to the search page with the search term as a query parameter
+            window.location.href = 'search.php?search=' + encodeURIComponent(searchTerm);
         }
-    });
+    }
+});
+
+
+
 // navbar highlight***********************************************************************************8
 document.addEventListener('DOMContentLoaded', function () {
 // Get the current hash fragment from the URL

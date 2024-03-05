@@ -49,7 +49,7 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $product['name'];?></title>
+    <title>Cart</title>
     <link rel="stylesheet" href="productDetails.css">
     <script src="https://kit.fontawesome.com/eda993e11c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

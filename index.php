@@ -19,6 +19,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://kit.fontawesome.com/eda993e11c.js" crossorigin="anonymous"></script>
     <!-- swiper slide -->
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+</head>
 <body>
     <!-- <div class="container"> -->
 
@@ -44,7 +45,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <a href="cart.php"><div class="fa fa-cart-shopping" id="cart"></div></a>
                     <?php if ($userLoggedIn): ?>
             <!-- Show logout icon if user is logged in -->
-                            <a href="userlogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
+                            <a href="./user/userProfile.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
                         <?php else: ?>
                             <!-- Show login icon if user is not logged in -->
                             <a href="login.php"><div class="fa fa-user" id="login-btn"></div></a>

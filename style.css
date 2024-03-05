@@ -409,7 +409,7 @@ h3 {
     
 .product-item img {
         width: 100%; /* Ensure the image takes up the full width of its container */
-        height: 100px; /* Set a fixed height for consistency */
+        max-height: 100px; /* Set a fixed height for consistency */
         object-fit: cover;
         border-radius: 8px; /* Rounded corners for images */
     }
@@ -499,6 +499,97 @@ h3 {
  align-items: center;
 }
 
+/* search page css */
+.search-container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* Four cards per row */
+    gap: 20px;
+    padding: 0px 25px;
+    justify-items: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    /* Ensure that the container width is wide enough to hold all four cards in a row */
+    /* You may adjust the width as needed based on your layout */
+    max-width: 1200px; /* Example: Set a maximum width to prevent excessive stretching */
+    margin: 0 auto; /* Center the container horizontally */
+    overflow-x: auto; /* Enable horizontal scrolling if the container's width exceeds the viewport */
+}
+
+
+.search-item {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s, transform 0.3s;
+    width: 250px; /* Fixed width for each card */
+    margin-bottom: 20px; /* Space between rows */
+}
+
+.search-heading {
+    color: var(--secondary);
+    margin-top: 3rem;
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center; /* Align the text horizontally to the center */
+}
+/* Update the search-item container to be a flex container */
+.search-item {
+    display: flex;
+    flex-grow: 1;
+    padding: 2rem;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Center the search items horizontally */
+    height: max-content;
+}
+
+/* Style for each search item */
+.search-item .box {
+    width: calc(25% - 20px); /* Adjust the width of the search item box */
+    /* Subtracting 20px for the gap between boxes */
+    background-color: #f9f9f9; /* Background color for search item boxes */
+    border-radius: 5px; /* Add rounded corners */
+    padding: 20px; /* Add padding */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.search-item img {
+    width: 100%; /* Ensure the image takes up the full width of its container */
+    max-height: 100px; /* Set a fixed height for consistency */
+    object-fit: cover;
+    border-radius: 8px; /* Rounded corners for images */
+}
+
+.search-item p {
+    color: var(--subtext);
+    font-size: 13px;
+    font-weight: 550;
+}
+
+.search-item .price {
+    font-weight: bold;
+    font-size: 13px;
+    color: var(--subtext);
+}
+
+
+
+
+
+/* sweet alert*/
+.swal-title,
+.swal-text,
+.swal-button {
+    font-family: 'Poppins', sans-serif; 
+    /* font-size: 30px; */
+}
+
+.swal2-popup {
+    font-size: 16px; /* Adjust the font size as needed */
+    width: 500px; /* Adjust the width as needed */
+    height: auto;
+}
 /* footer section */
 .footer{
     background: #fff;
