@@ -114,7 +114,7 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Product</span>
                     </a></li>
-                <li><a href="bloodstock.php">
+                <li><a href="adminProfile.php">
                         <i class="fa-solid fa-shopping-cart"></i>
                         <span class="nav-item">Profile</span>
                     </a></li>

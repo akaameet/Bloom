@@ -67,6 +67,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 
             </form>
         </nav>
+        <!--home section-->
         <?php if(!empty($searchResults)): ?>
            <!-- Search results section -->
            <section class="search-results">
@@ -84,7 +85,6 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                </div>
            </section>
        <?php else: ?>
-        <!--home section-->
         
         <section class="home" id="home">
                 <div class="overlay">

@@ -533,43 +533,22 @@ h3 {
     font-weight: 800;
     text-align: center; /* Align the text horizontally to the center */
 }
-/* Update the search-item container to be a flex container */
-.search-item {
-    display: flex;
-    flex-grow: 1;
-    padding: 2rem;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center; /* Center the search items horizontally */
-    height: max-content;
-}
 
-/* Style for each search item */
-.search-item .box {
-    width: calc(25% - 20px); /* Adjust the width of the search item box */
-    /* Subtracting 20px for the gap between boxes */
-    background-color: #f9f9f9; /* Background color for search item boxes */
-    border-radius: 5px; /* Add rounded corners */
-    padding: 20px; /* Add padding */
-    box-sizing: border-box; /* Ensure padding is included in the width */
+.search-item:hover {
+    box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
 }
 
 .search-item img {
     width: 100%; /* Ensure the image takes up the full width of its container */
-    max-height: 100px; /* Set a fixed height for consistency */
+    max-height: 150px; /* Set a fixed height for consistency */
     object-fit: cover;
-    border-radius: 8px; /* Rounded corners for images */
+    border-radius: 8px;
 }
 
-.search-item p {
-    color: var(--subtext);
-    font-size: 13px;
-    font-weight: 550;
-}
-
-.search-item .price {
-    font-weight: bold;
-    font-size: 13px;
+.search-price {
+    font-size: 1.5rem;
+    font-weight: 600;
     color: var(--subtext);
 }
 

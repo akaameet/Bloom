@@ -61,19 +61,6 @@ $total_user = $stmt->fetch(PDO::FETCH_ASSOC)['total_user'];
     <section class="productPage">
         <div class="product-list">
             <ul>
-                <!-- <li>
-                    <div class="logo">
-                        <img src="../assets/img/bloom-high-resolution-logo-transparent.png" alt="">
-                    </div>
-                </li> -->
-                <!-- <li class="dropdown1">
-                    <a id="categories-toggle"  href="#"> <i class="fas fa-list"></i> 
-                         <span class="nav-item"> Categories</span></a>
-                    <div id="categories-dropdown" class="dropdown1-content">
-                        <a href="#indoor-plants">Indoor Plants</a>
-                        <a href="#outdoor-plants">Outdoor Plants</a>
-                    </div>
-                </li> -->
                 <li><a href="admindashboard.php" class="active" >
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Dashboard</span>
@@ -86,7 +73,7 @@ $total_user = $stmt->fetch(PDO::FETCH_ASSOC)['total_user'];
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Product</span>
                     </a></li>
-                <li><a href="bloodstock.php">
+                <li><a href="adminProfile.php">
                         <i class="fa-solid fa-shopping-cart"></i>
                         <span class="nav-item">Profile</span>
                     </a></li>

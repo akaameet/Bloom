@@ -97,10 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Product</span>
                     </a></li>
-                <li><a href="bloodstock.php">
-                        <i class="fa-solid fa-shopping-cart"></i>
-                        <span class="nav-item">Profile</span>
-                    </a></li>
+                <li><a href="adminProfile.php">
+                     <i class="fa-solid fa-shopping-cart"></i>
+                    <span class="nav-item">Profile</span>
+                </a></li>
             </ul>
          
         </div>
