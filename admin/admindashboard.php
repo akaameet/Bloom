@@ -14,13 +14,18 @@ $total_plants = $stmt->fetch(PDO::FETCH_ASSOC)['total_plants'];
 $stmt = $pdo->prepare("SELECT COUNT(*) AS total_user FROM user");
 $stmt->execute();
 $total_user = $stmt->fetch(PDO::FETCH_ASSOC)['total_user'];
+
+//Retrieve total order
+$stmt = $pdo->prepare("SELECT COUNT(*) AS total_order FROM order_data");
+$stmt->execute();
+$total_order = $stmt->fetch(PDO::FETCH_ASSOC)['total_order'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="admin.css">
     <script src="https://kit.fontawesome.com/eda993e11c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -37,22 +42,12 @@ $total_user = $stmt->fetch(PDO::FETCH_ASSOC)['total_user'];
             <i class="fa-solid fa-bars"></i>
         </label>
         <ul>
-            <!-- <li class="homeLink"><a href="index.php#home">Home</a></li>
-            <li><a href="index.php#category">Category</a></li>
-            <li class="productPage-hover"><a href="product.php">Products</a></li> -->
             <li><a>Dashboard<a></li>     
         </ul>
         <div class="icons">
-            <!-- <div class="fa fa-search" id="search-btn"></div> -->
-            <div class="fa fa-cart-shopping" id="cart" style="background-color: #5D9943; color: white;"></div>
-            <?php if ($userLoggedIn): ?>
-              <!-- Show logout icon if user is logged in -->
-                    <a href="adminLogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
-                    <?php else: ?>
-                    <!-- Show login icon if user is not logged in -->
-                    <a href="login.php?"> <div class="fa fa-user" id="login-btn"></div></a>
-             <?php endif; ?>
-         </div>
+            <div class="fa fa-search" id="search-btn"></div>
+            <a href="adminLogout.php"> <div class="fa fa-sign-out" id="login-btn"></div></a>
+        </div>
         <!-- <form class="search-form">
             <input type="search" id="search-box" placeholder="Search Here...">
             <label for="search-box" class="fa fa-search"></label>
@@ -65,16 +60,20 @@ $total_user = $stmt->fetch(PDO::FETCH_ASSOC)['total_user'];
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Dashboard</span>
                     </a></li>
-                <li><a href="addProduct.php">
-                        <i class="fas fa-user"></i>
+                    <li><a href="addProduct.php" >
+                    <i class="fa-solid fa-cart-shopping"></i>
                         <span class="nav-item">New Product</span>
                     </a></li>
                 <li><a href="adminProduct.php">
-                        <i class="fas fa-user"></i>
+                <i class="fa-solid fa-list"></i>
                         <span class="nav-item">Product</span>
                     </a></li>
+                <li><a href="userlist.php">
+                        <i class="fas fa-user"></i>
+                        <span class="nav-item">User</span>
+                    </a></li>
                 <li><a href="adminProfile.php">
-                        <i class="fa-solid fa-shopping-cart"></i>
+                        <i class="fas fa-user""></i>
                         <span class="nav-item">Profile</span>
                     </a></li>
             </ul>
@@ -96,6 +95,10 @@ $total_user = $stmt->fetch(PDO::FETCH_ASSOC)['total_user'];
             <div class="box">
             <div class="step_number"><i class="fa-solid fa-user"></i></div>
                 <h2>Total User: <?php echo $total_user; ?></h2>
+            </div>
+            <div class="box">
+            <div class="step_number"><i class="fa-solid fa-cart-shopping"></i></div>
+                <h2>Total Order: <?php echo $total_order; ?></h2>
             </div>
                     
         </div>

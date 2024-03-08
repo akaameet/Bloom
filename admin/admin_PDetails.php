@@ -83,7 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
              <li><a>Product Details <a></li>      
         </ul>
         <div class="icons">
-            <a href="login.php"> <div class="fa fa-user" id="login-btn"></div></a>
+            <div class="fa fa-search" id="search-btn"></div>
+            <a href="adminLogout"> <div class="fa fa-sign-out" id="login-btn"></div></a>
         </div>
         <form class="search-form">
             <input type="search" id="search-box" placeholder="Search Here...">
@@ -94,35 +95,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
     <section class="productPage">
         <div class="product-list">
             <ul>
-                <!-- <li>
-                    <div class="logo">
-                        <img src="../assets/img/bloom-high-resolution-logo-transparent.png" alt="">
-                    </div>
-                </li> -->
-                <!-- <li class="dropdown1">
-                    <a id="categories-toggle"  href="#"> <i class="fas fa-list"></i> 
-                         <span class="nav-item"> Categories</span></a>
-                    <div id="categories-dropdown" class="dropdown1-content">
-                        <a href="#indoor-plants">Indoor Plants</a>
-                        <a href="#outdoor-plants">Outdoor Plants</a>
-                    </div>
-                </li> -->
                 <li><a href="admindashboard.php" >
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Dashboard</span>
                     </a></li>
-                <li><a href="addProduct.php">
-                        <i class="fas fa-user"></i>
+                    <li><a href="addProduct.php">
+                    <i class="fa-solid fa-cart-shopping"></i>
                         <span class="nav-item">New Product</span>
                     </a></li>
                 <li><a href="adminProduct.php" class="active">
-                        <i class="fas fa-user"></i>
+                <i class="fa-solid fa-list"></i>
                         <span class="nav-item">Product</span>
                     </a></li>
-                 <li><a href="adminProfile.php">
-                        <i class="fa-solid fa-shopping-cart"></i>
-                        <span class="nav-item">Profile</span>
+                <li><a href="userlist.php" >
+                        <i class="fas fa-user"></i>
+                        <span class="nav-item">User</span>
                     </a></li>
+                <li><a href="adminProfile.php">
+                     <i class="fas fa-user"></i>
+                    <span class="nav-item">Profile</span>
+                </a></li>
             </ul>
          
         </div>

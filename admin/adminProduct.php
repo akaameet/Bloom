@@ -65,22 +65,12 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <i class="fa-solid fa-bars"></i>
         </label>
         <ul>
-            <!-- <li class="homeLink"><a href="index.php#home">Home</a></li>
-            <li><a href="index.php#category">Category</a></li>
-            <li class="productPage-hover"><a href="product.php">Products</a></li> -->
             <li><a>Product<a></li>     
         </ul>
         <div class="icons">
-            <!-- <div class="fa fa-search" id="search-btn"></div> -->
-            <div class="fa fa-cart-shopping" id="cart" style="background-color: #5D9943; color: white;"></div>
-            <?php if ($userLoggedIn): ?>
-              <!-- Show logout icon if user is logged in -->
-                    <a href="userlogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
-                    <?php else: ?>
-                    <!-- Show login icon if user is not logged in -->
-                    <a href="login.php?"> <div class="fa fa-user" id="login-btn"></div></a>
-             <?php endif; ?>
-         </div>
+            <div class="fa fa-search" id="search-btn"></div>
+            <a href="adminLogout"> <div class="fa fa-sign-out" id="login-btn"></div></a>
+        </div>
         <!-- <form class="search-form">
             <input type="search" id="search-box" placeholder="Search Here...">
             <label for="search-box" class="fa fa-search"></label>
@@ -89,35 +79,26 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <section class="productPage">
         <div class="product-list">
             <ul>
-                <!-- <li>
-                    <div class="logo">
-                        <img src="../assets/img/bloom-high-resolution-logo-transparent.png" alt="">
-                    </div>
-                </li> -->
-                <!-- <li class="dropdown1">
-                    <a id="categories-toggle"  href="#"> <i class="fas fa-list"></i> 
-                         <span class="nav-item"> Categories</span></a>
-                    <div id="categories-dropdown" class="dropdown1-content">
-                        <a href="#indoor-plants">Indoor Plants</a>
-                        <a href="#outdoor-plants">Outdoor Plants</a>
-                    </div>
-                </li> -->
                 <li><a href="admindashboard.php" >
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Dashboard</span>
                     </a></li>
-                <li><a href="addProduct.php">
-                        <i class="fas fa-user"></i>
+                <li><a href="addProduct.php" >
+                <i class="fa-solid fa-cart-shopping"></i>
                         <span class="nav-item">New Product</span>
                     </a></li>
                 <li><a href="adminProduct.php" class="active">
-                        <i class="fas fa-user"></i>
+                <i class="fa-solid fa-list"></i>
                         <span class="nav-item">Product</span>
                     </a></li>
+                <li><a href="userlist.php">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item">User</span>
+                </a></li>
                 <li><a href="adminProfile.php">
-                        <i class="fa-solid fa-shopping-cart"></i>
-                        <span class="nav-item">Profile</span>
-                    </a></li>
+                     <i class="fas fa-user"></i>
+                    <span class="nav-item">Profile</span>
+                </a></li>
             </ul>
          
         </div>

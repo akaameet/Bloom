@@ -73,14 +73,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="userdashboard.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://kit.fontawesome.com/eda993e11c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
-            <a href="../index.php">
+            <a href="index.php">
                 <img src="../assets/img/bloom-high-resolution-logo-transparent.png"/> 
             </a>
         </div>
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
             <div class="fa fa-cart-shopping" id="cart" style="background-color: #5D9943; color: white;"></div>
             <?php if ($userLoggedIn): ?>
               <!-- Show logout icon if user is logged in -->
-                    <a href="../userlogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
+                    <a href="userlogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
                     <?php else: ?>
                     <!-- Show login icon if user is not logged in -->
                     <a href="login.php?"> <div class="fa fa-user" id="login-btn"></div></a>
@@ -112,18 +112,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Profile</span>
                     </a></li>
-                <li><a href="addProduct.php">
+                <li><a href="order.php">
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Order History</span>
                     </a></li>
-                <!-- <li><a href="adminProduct.php">
-                        <i class="fas fa-user"></i>
-                        <span class="nav-item">Product</span>
-                    </a></li>
-                <li><a href="bloodstock.php">
-                        <i class="fa-solid fa-shopping-cart"></i>
-                        <span class="nav-item">Profile</span>
-                    </a></li> -->
+
             </ul>
          
         </div>
@@ -147,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
                     <input type="text" id="address" name="address" value="<?php echo $userProfile['address']; ?>" ><br>
                     <div id="address-error" class="error-message"></div> 
                     
-                    <button type="submit" name="update_profile">Update Profile</button>
+                    <button type="submit" class="btn" name="update_profile">Update Profile</button>
                 </div>
             </form>
         </div>

@@ -29,10 +29,6 @@ body{
     background: #eee;
 }
 
-/* .container {
-    margin: 0 auto;
-    max-width: 1100px;
-} */
 .heading{
     /* display: flex; */
     text-align: center;
@@ -72,9 +68,9 @@ nav{
     padding: 0px 50px;
     box-shadow: var(--box-shadow);
     position: static; /* Fix the navigation bar at the top */
-    width: 100%; /* Take up the full width of the viewport */
+    width: 100%; 
     z-index: 1000; /* Ensure the navigation bar appears above other content */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); /* Add shadow for box effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); 
     transition: all 300ms ease-in;
 }
 
@@ -220,13 +216,12 @@ nav .search-form label:hover{
 .product-list ul {
         list-style: none;
         width:20rem;
-        /* background: hsl(0, 23%, 84%); */
-        padding: 2rem 0; /* Remove padding to avoid extra spacing */
+        padding: 2rem 0; 
         margin: 0;
     }
     
 .product-list ul li {
-        margin-bottom: 10px; /* Adjust margin between list items */
+        margin-bottom: 10px; 
     }
     
 .product-list ul li a {
@@ -234,26 +229,24 @@ nav .search-form label:hover{
         color: #3c3737;
         font-weight: 600;
         font-size: 15px;
-        /* color: #333; */
         text-align: center;
-        display: block; /* Change to block to fill the full width */
+        display: block; 
         padding: 10px 15px;
-        background-color: #f9f9f9; /* Background color for list items */
-        /* border-radius: 5px; */
+        background-color: #f9f9f9; 
         transition: background-color 0.3s ease;
     }
     
 .product-list  ul li a:hover {
         background-color: var(--third);
-        color: white; /* Background color change on hover */
+        color: white; 
     }
 .product-list ul li a.active{
     background-color: var(--third);
     color: white; 
 }
     .product-link.active {
-        background-color: var(--third); /* Change to your desired background color */
-        color: white; /* Change to your desired font color */
+        background-color: var(--third); 
+        color: white; 
 
     }
        
@@ -269,16 +262,16 @@ nav .search-form label:hover{
     padding: 2rem;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Center the products horizontally */
+    justify-content: center; 
     height: max-content;
 }
 
     
 .product-item .box {
-        width: calc(25.25% - 20px); /* Adjust the width of the product box */
+        width: calc(25.25% - 20px); 
         /* Subtracting 20px for the gap between boxes */
-        background-color: #f9f9f9; /* Background color for product boxes */
-        box-sizing: border-box; /* Ensure padding is included in the width */
+        background-color: #f9f9f9; 
+        box-sizing: border-box; 
         background-color: #fff;
         padding: 20px;
         text-align: center;
@@ -288,21 +281,20 @@ nav .search-form label:hover{
 .step_number {
         font-size: 4rem;
         color: 0 4px 8px rgba(110, 97, 97, 0.1);
-        /* align-items: center; */
     }
 .box:hover .step_number i {
-        font-size: 4.2rem; /* Increase the font size */
-        transition: font-size 0.3s ease; /* Add a smooth transition effect */
+        font-size: 4.2rem; 
+        transition: font-size 0.3s ease; 
         color: 0 4px 8px rgba(94, 70, 70, 0.1);
     }
 .box:hover .step_number {
-        transform: scale(1.2); /* Scale the .step_number container */
-        transition: transform 0.3s ease; /* Add a smooth transition effect */
+        transform: scale(1.2);
+        transition: transform 0.3s ease; 
     }
 
 /* update stock*/
 .cart-container {
-    max-width: 800px;
+    max-width: 850px;
     margin: 0 auto;
     padding: 20px;
         display: flex;
@@ -325,7 +317,7 @@ h1 {
 }
 table {
     width: auto; 
-    margin: 0 auto; /* Center the table horizontally */
+    margin: 0 auto; 
     border-collapse: collapse;
     border-spacing: 0; /* No spacing between table cells */
     color: var(--text);
@@ -341,7 +333,7 @@ table th {
     font-weight: 600;
     text-align: center; 
     border: none; 
-    border-bottom: 1.5px solid #a9a8a8; /* Add bottom border to headers */
+    border-bottom: 1.5px solid #a9a8a8; 
 
 }
 table td {
@@ -354,7 +346,7 @@ table td {
 
 /* Alternate row color */
 table tr:last-child td {
-    border-bottom: none; /* Remove bottom border for last row */
+    border-bottom: none; 
 }
 
 .delete-icon{
@@ -439,7 +431,7 @@ table tr:last-child td {
 }
 
 .new_product .input-group .box {
-    width: 45%; /* Adjust width as needed */
+    width: 45%; 
 }
 
 .new_product .box {
@@ -460,25 +452,11 @@ table tr:last-child td {
     box-sizing: border-box;
 }
 
-/* .new_product .btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.new_product .btn:hover {
-    background-color: #45a049;
-} */
-
 /* adminProfile */
 .change_password_container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the items horizontally */
+    align-items: center; 
     width: calc(100vw - 3.75rem);
     padding: 20px;
     margin: 0 auto; /* Center the container horizontally */
@@ -539,11 +517,10 @@ input:focus {
 }
 .footer_container {
     display: grid;
-    grid-template-columns: repeat(4, minmax(200px, 1fr)); /* Adjust column width as needed */
+    grid-template-columns: repeat(4, minmax(200px, 1fr)); 
     gap: 1.5rem;
      justify-items: center; 
      padding: 2rem 10rem; 
-    /* border: 2px solid green; */
 }
 .footer_container ul{
     list-style: none;
@@ -572,7 +549,6 @@ input:focus {
     height: 3rem;
     width: 3rem;
     border-radius: .5rem;
-    /* margin-left: .2rem; */
     background: #eee;
     text-align: center;
 }
@@ -612,45 +588,9 @@ input:focus {
     color: var(--text);
     width: max-content;
     grid-column: 1 / -1;
-    /* border: 2px solid red; */
-    /* position: absolute; /* Position the copy text absolutely */
-    /*bottom: 1rem; /* Adjust the distance from the bottom as needed */
-    /*left: 50%; /* Align the copy text in the center horizontally */
-    /* transform: translateX(-50%); /* Center the text horizontally */
-    /* text-align: center; */
 }
 
- /* product page css */
- /* CSS for Categories Dropdown */
-.dropdown1 {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown1-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown1-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown1-content a:hover {
-    background-color: #f1f1f1;
-}
-
-.dropdown1:hover .dropdown1-content {
-    display: block;
-}
-
+ 
 @media(max-width:940px){
     .overlay{
         padding: 2rem ;
