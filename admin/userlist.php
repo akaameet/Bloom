@@ -34,8 +34,8 @@ $userList = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <li><a>Product<a></li>     
         </ul>
         <div class="icons">
-            <div class="fa fa-search" id="search-btn"></div>
-            <a href="adminLogout"> <div class="fa fa-sign-out" id="login-btn"></div></a>
+            <!-- <div class="fa fa-search" id="search-btn"></div> -->
+            <a href="adminLogout.php"> <div class="fa fa-sign-out" id="login-btn"></div></a>
         </div>
         <!-- <form class="search-form">
             <input type="search" id="search-box" placeholder="Search Here...">
@@ -61,6 +61,10 @@ $userList = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <i class="fas fa-user"></i>
                             <span class="nav-item">User</span>
                         </a></li>
+                <li><a href="orderList.php" >
+                <i class="fa-solid fa-truck"></i>
+                        <span class="nav-item">Order</span>
+                    </a></li>
                 <li><a href="adminProfile.php" >
                      <i class="fas fa-user"></i>
                     <span class="nav-item">Profile</span>
@@ -80,7 +84,6 @@ $userList = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <!-- <th>Update</th> -->
 
                             </tr>
                         </thead>
@@ -97,8 +100,8 @@ $userList = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php elseif (!$userLoggedIn): ?>
                 <!-- Display a message if the user is not logged in -->
                 <div class="empty-cart">
-                    <h1>Shopping Cart</h1>
-                    <p>There is nothing in the cart.</p>
+                    <!-- <h1>Shopping Cart</h1> -->
+                    <p>There is nothing in the list.</p>
                 </div>
                  <?php endif; ?>
                  </div>

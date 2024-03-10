@@ -2,43 +2,27 @@
 include('../dbconn.php');
 session_start();
 
-// Check if the user is logged in
 $userLoggedIn = isset($_SESSION['admin_id']);
 
-// Handle item deletion if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_item'])) {
-    // Check if the item ID is provided and if the user is logged in
+
     if (isset($_POST['item_id']) ) {
-        // Get the item ID from the POST request
         $item_id = $_POST['item_id'];
-        
-        // Prepare and execute the SQL statement to delete the item from the cart
         $stmt = $pdo->prepare('DELETE FROM product WHERE product_id = :item_id ');
         $stmt->execute(['item_id' => $item_id]);
-        
-        // Redirect the user back to the cart page after deletion
+
         header('Location: adminCart.php');
         exit();
     }
 }
-// Check if the request method is POST
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['item_id']) && isset($_POST['quantity'])) {
-    // Sanitize input data
     $item_id = $_POST['item_id'];
     $quantity = $_POST['quantity'];
-
-    // Prepare and execute the SQL statement to update the quantity in the cart table
     $stmt = $pdo->prepare('UPDATE product SET stock = :quantity WHERE product_id = :item_id');
     $stmt->execute(['quantity' => $quantity, 'item_id' => $item_id]);
 
-    // You can echo a success message if needed
-    // echo 'Quantity updated successfully';
-    // exit();
 } 
-
-    // echo 'Invalid request';
-
-// Check if the user is logged in
 $stmt = $pdo->prepare('SELECT * FROM product ');
 $stmt->execute();
 $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -68,8 +52,8 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <li><a>Product<a></li>     
         </ul>
         <div class="icons">
-            <div class="fa fa-search" id="search-btn"></div>
-            <a href="adminLogout"> <div class="fa fa-sign-out" id="login-btn"></div></a>
+            <!-- <div class="fa fa-search" id="search-btn"></div> -->
+            <a href="adminLogout.php"> <div class="fa fa-sign-out" id="login-btn"></div></a>
         </div>
         <!-- <form class="search-form">
             <input type="search" id="search-box" placeholder="Search Here...">
@@ -95,6 +79,10 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <i class="fas fa-user"></i>
                     <span class="nav-item">User</span>
                 </a></li>
+                <li><a href="orderList.php" >
+                <i class="fa-solid fa-truck"></i>
+                        <span class="nav-item">Order</span>
+                    </a></li>
                 <li><a href="adminProfile.php">
                      <i class="fas fa-user"></i>
                     <span class="nav-item">Profile</span>
@@ -106,7 +94,6 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="cart-container">
            <div class="cart-items">
            <?php if ($userLoggedIn && count($cartItems) > 0): ?>
-            <!-- <h1>Update Product</h1> -->
                 <table >
                         <thead>
                             <tr>
@@ -114,7 +101,6 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <th>Product Name</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
-                                <!-- <th>Update</th> -->
 
                             </tr>
                         </thead>
@@ -125,14 +111,12 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo $item['name']; ?></td>
                                     <td class="price"><?php echo $item['price']; ?></td> <!-- Add class="price" -->
                                     <td>
-                                        <!-- Quantity adjustment buttons -->
                                         <button class="quantity-btn minus">-</button>
                                         <input type="text" class="quantity" value="<?php echo $item['stock']; ?>">
                                         <button class="quantity-btn plus">+</button>
                                     </td>
                                     <td> </td>
                                     <td>
-                                        <!-- Delete icon form -->
                                         <form action="#" method="POST">
                                             <input type="hidden" name="item_id" value="<?php echo $item['product_id']; ?>">
                                             <button type="submit" class="delete-icon" name="delete_item"><i class="fas fa-trash-alt"></i></button>
@@ -145,8 +129,7 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php elseif (!$userLoggedIn): ?>
                 <!-- Display a message if the user is not logged in -->
                 <div class="empty-cart">
-                    <h1>Shopping Cart</h1>
-                    <p>There is nothing in the cart.</p>
+                    <p>There is nothing in the list.</p>
                 </div>
                  <?php endif; ?>
                  </div>
@@ -191,10 +174,7 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </footer>
 
     <script>
-        // JavaScript code to handle quantity update and total price calculation using AJAX
         document.addEventListener('DOMContentLoaded', function() {
-    
-    // Add event listeners to the plus and minus buttons
     document.querySelectorAll('.quantity-btn').forEach(function(button) {
         button.addEventListener('click', function() {
             var quantityInput = this.parentNode.querySelector('.quantity');
@@ -212,18 +192,13 @@ $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
         });
     });
 
-    // Function to update the cart item and total dynamically
     function updateCartItem(cartItem) {
         var quantityInput = cartItem.querySelector('.quantity');
         var quantity = parseInt(quantityInput.value);
         var itemId = cartItem.dataset.itemId;
 
-
-
-
-                // Send AJAX request to update quantity in the database
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', '<?php echo $_SERVER["PHP_SELF"]; ?>', true); // Update this URL with the correct PHP script
+                xhr.open('POST', '<?php echo $_SERVER["PHP_SELF"]; ?>', true); 
                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 xhr.send('item_id=' + itemId + '&quantity=' + quantity);
             }

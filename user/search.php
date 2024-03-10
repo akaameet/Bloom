@@ -49,10 +49,8 @@ if(isset($_GET['search'])) {
             <div class="fa fa-search" id="search-btn"></div>
             <a href="cart.php"><div class="fa fa-cart-shopping" id="cart"></div></a>
             <?php if ($userLoggedIn): ?>
-                <!-- Show logout icon if user is logged in -->
                 <a href="userProfile.php"><div class="fa-solid fa-house-user" id="logout-btn"></div></a>
             <?php else: ?>
-                <!-- Show login icon if user is not logged in -->
                 <a href="login.php"><div class="fa fa-user" id="login-btn"></div></a>
             <?php endif; ?>
         </div>
@@ -62,7 +60,6 @@ if(isset($_GET['search'])) {
         </form>
     </nav>
     
-    <!-- Display search results -->
     <section class="search" id="search">
         <h1 class="search-heading">Search Results</h1>
         <div class="search-container">

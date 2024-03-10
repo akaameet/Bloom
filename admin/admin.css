@@ -268,7 +268,8 @@ nav .search-form label:hover{
 
     
 .product-item .box {
-        width: calc(25.25% - 20px); 
+    flex-basis: calc(33.33% - 20px); /* Adjust the width as per your design */
+    margin: 10px;
         /* Subtracting 20px for the gap between boxes */
         background-color: #f9f9f9; 
         box-sizing: border-box; 
@@ -278,6 +279,10 @@ nav .search-form label:hover{
         border-radius: 15px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+a {
+    text-decoration: none;
+    color: black;
+}
 .step_number {
         font-size: 4rem;
         color: 0 4px 8px rgba(110, 97, 97, 0.1);

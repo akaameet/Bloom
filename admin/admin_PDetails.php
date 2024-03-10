@@ -83,13 +83,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
              <li><a>Product Details <a></li>      
         </ul>
         <div class="icons">
-            <div class="fa fa-search" id="search-btn"></div>
-            <a href="adminLogout"> <div class="fa fa-sign-out" id="login-btn"></div></a>
+            <!-- <div class="fa fa-search" id="search-btn"></div> -->
+            <a href="adminLogout.php"> <div class="fa fa-sign-out" id="login-btn"></div></a>
         </div>
-        <form class="search-form">
+        <!-- <form class="search-form">
             <input type="search" id="search-box" placeholder="Search Here...">
             <label for="search-box" class="fa fa-search"></label>
-        </form>
+        </form> -->
     </nav>
 
     <section class="productPage">

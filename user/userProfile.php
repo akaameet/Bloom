@@ -88,22 +88,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
         <label for="click" class="menu-btn">
             <i class="fa-solid fa-bars"></i>
         </label>
-
+        <ul>
+            <li class="homeLink"><a href="index.php#home">Home</a></li>
+            <li class="categoryLink"><a href="index.php#category">Category</a></li>
+            <li class="productLink"><a href="product.php">Products</a></li>
+            <li class="contactLink"><a href="index.php#contact">Contact</a></li>   
+        </ul>
         <div class="icons">
-            <!-- <div class="fa fa-search" id="search-btn"></div> -->
-            <div class="fa fa-cart-shopping" id="cart" style="background-color: #5D9943; color: white;"></div>
-            <?php if ($userLoggedIn): ?>
-              <!-- Show logout icon if user is logged in -->
-                    <a href="userlogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
-                    <?php else: ?>
-                    <!-- Show login icon if user is not logged in -->
-                    <a href="login.php?"> <div class="fa fa-user" id="login-btn"></div></a>
-             <?php endif; ?>
+            <a href="userlogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
          </div>
-        <!-- <form class="search-form">
-            <input type="search" id="search-box" placeholder="Search Here...">
-            <label for="search-box" class="fa fa-search"></label>
-        </form> -->
     </nav>
     <section class="productPage">
         <div class="product-list">
@@ -113,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
                         <span class="nav-item">Profile</span>
                     </a></li>
                 <li><a href="order.php">
-                        <i class="fas fa-user"></i>
+                <i class="fa-solid fa-truck"></i>
                         <span class="nav-item">Order History</span>
                     </a></li>
 

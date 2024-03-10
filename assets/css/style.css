@@ -573,6 +573,9 @@ h3 {
 .search-name{
     font-size: 15px;
     font-weight: bold;
+    white-space: nowrap;     
+    overflow: hidden;          
+    text-overflow: ellipsis;  
 }
 
 /* success transaction */

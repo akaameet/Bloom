@@ -2,17 +2,16 @@
     session_start();
     include '../dbconn.php';
 
-    if(!isset($_SESSION['user_id'])){
-        header('location: index.php');
+    if(!isset($_SESSION['admin_id'])){
+        header('location: ../user/index.php');
         exit(); // It's good practice to stop script execution after redirection
     }
 
     // Retrieve the user_id from the session
-    $user_id = $_SESSION['user_id'];
+    $user_id = $_SESSION['admin_id'];
 
     // Prepare and execute the SQL statement to select order data for the user
-    $stmt = $pdo->prepare("SELECT * FROM order_data WHERE user_id = :user_id");
-    $stmt->bindParam(':user_id', $user_id);
+    $stmt = $pdo->prepare("SELECT * FROM order_data ");
     $stmt->execute();
     $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -23,7 +22,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order History</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href=" admin.css">
     <script src="https://kit.fontawesome.com/eda993e11c.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -39,25 +38,41 @@
             <i class="fa-solid fa-bars"></i>
         </label>
         <ul>
-            <li class="homeLink"><a href="#home">Home</a></li>
+            <!-- <li class="homeLink"><a href="#home">Home</a></li>
             <li class="categoryLink"><a href="#category">Category</a></li>
-            <li class="productLink"><a href="product.php">Products</a></li>
-            <li class="contactLink"><a href="#contact">Contact</a></li>   
+            <li class="productLink"><a href="product.php">Products</a></li> -->
+            <li ><a href="">Order List</a></li>   
         </ul>
         <div class="icons">
-                <a href="userLogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>     
+                <a href="adminLogout.php"><div class="fa fa-sign-out" id="logout-btn"></div></a>
         </div>
     </nav>
     <section class="productPage">
         <div class="product-list">
             <ul>
-                <li><a href="userProfile.php" >
+            <li><a href="admindashboard.php"  >
                         <i class="fas fa-user"></i>
-                        <span class="nav-item">Profile</span>
+                        <span class="nav-item">Dashboard</span>
                     </a></li>
-                <li><a href="order.php" class="active1">
+                    <li><a href="addProduct.php" >
+                    <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="nav-item">New Product</span>
+                    </a></li>
+                <li><a href="adminProduct.php">
+                <i class="fa-solid fa-list"></i>
+                        <span class="nav-item">Product</span>
+                    </a></li>
+                <li><a href="userlist.php">
+                        <i class="fas fa-user"></i>
+                        <span class="nav-item">User</span>
+                    </a></li>
+                <li><a href="orderList.php" class="active">
                 <i class="fa-solid fa-truck"></i>
-                        <span class="nav-item">Order History</span>
+                        <span class="nav-item">Order</span>
+                    </a></li>
+                <li><a href="adminProfile.php">
+                        <i class="fas fa-user""></i>
+                        <span class="nav-item">Profile</span>
                     </a></li>
             </ul>
           </div>
@@ -69,6 +84,7 @@
                                             <tr>
                                                 <th></th>
                                                 <th>Product Name</th>
+                                                <th>User Id</th>
                                                 <th>Price</th>
                                                 <th>Quantity</th>
                                                 <th>Total</th>
@@ -81,6 +97,7 @@
                                             <tr data-item-id="<?php echo $item['product_id']; ?>"> <!-- Add data-item-id attribute -->
                                                 <td><img src="../assets/img/<?php echo $item['image']; ?>" alt="Product Image"></td>
                                                 <td><?php echo $item['name']; ?></td>
+                                                <td><?php echo $item['user_id']; ?></td>
                                                 <td class="price"><?php echo $item['price']; ?></td> 
                                                 <td class="price"><?php echo $item['quantity']; ?></td> 
                                                 <td class="price"><?php echo $item['price'] * $item['quantity']; ?></td>

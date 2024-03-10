@@ -19,6 +19,11 @@ $total_user = $stmt->fetch(PDO::FETCH_ASSOC)['total_user'];
 $stmt = $pdo->prepare("SELECT COUNT(*) AS total_order FROM order_data");
 $stmt->execute();
 $total_order = $stmt->fetch(PDO::FETCH_ASSOC)['total_order'];
+
+//Retrieve total sale
+$stmt = $pdo->prepare("SELECT SUM(price * quantity) AS total_sale FROM order_data");
+$stmt->execute();
+$total_sale = $stmt->fetch(PDO::FETCH_ASSOC)['total_sale'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,6 +77,10 @@ $total_order = $stmt->fetch(PDO::FETCH_ASSOC)['total_order'];
                         <i class="fas fa-user"></i>
                         <span class="nav-item">User</span>
                     </a></li>
+                <li><a href="orderList.php">
+                        <i class="fas fa-user"></i>
+                        <span class="nav-item">Order</span>
+                    </a></li>
                 <li><a href="adminProfile.php">
                         <i class="fas fa-user""></i>
                         <span class="nav-item">Profile</span>
@@ -93,14 +102,18 @@ $total_order = $stmt->fetch(PDO::FETCH_ASSOC)['total_order'];
                 <h2>Total Plants: <?php echo $total_plants; ?></h2>
             </div>
             <div class="box">
-            <div class="step_number"><i class="fa-solid fa-user"></i></div>
-                <h2>Total User: <?php echo $total_user; ?></h2>
+            <a href="userlist.php"><div class="step_number"><i class="fa-solid fa-user"></i></div>
+                <h2>Total User: <?php echo $total_user; ?></h2></a>
             </div>
             <div class="box">
             <div class="step_number"><i class="fa-solid fa-cart-shopping"></i></div>
                 <h2>Total Order: <?php echo $total_order; ?></h2>
             </div>
-                    
+            <div class="box">
+            <div class="step_number"><i class="fa-solid fa-dollar-sign"></i></div>
+                <h2>Total Sale:Rs. <?php echo $total_sale; ?></h2>
+            </div>
+            
         </div>
     </section>
  
