@@ -63,7 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if(isset($_SESSION['product_id']) ) {    
-    // Fetch product details from the database based on the product ID
  $stmt = $pdo->prepare('SELECT * FROM product WHERE product_id = :id');
     $stmt->bindParam(':id', $productId, PDO::PARAM_INT); 
     $stmt->execute();

@@ -111,6 +111,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
                         <i class="fas fa-user"></i>
                         <span class="nav-item">User</span>
                     </a></li>
+                 <li><a href="orderList.php" >
+                <i class="fa-solid fa-truck"></i>
+                        <span class="nav-item">Order</span>
+                    </a></li>
                 <li><a href="adminProfile.php">
                      <i class="fas fa-user"></i>
                     <span class="nav-item">Profile</span>

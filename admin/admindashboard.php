@@ -50,7 +50,7 @@ $total_sale = $stmt->fetch(PDO::FETCH_ASSOC)['total_sale'];
             <li><a>Dashboard<a></li>     
         </ul>
         <div class="icons">
-            <div class="fa fa-search" id="search-btn"></div>
+            <!-- <div class="fa fa-search" id="search-btn"></div> -->
             <a href="adminLogout.php"> <div class="fa fa-sign-out" id="login-btn"></div></a>
         </div>
         <!-- <form class="search-form">
@@ -78,7 +78,7 @@ $total_sale = $stmt->fetch(PDO::FETCH_ASSOC)['total_sale'];
                         <span class="nav-item">User</span>
                     </a></li>
                 <li><a href="orderList.php">
-                        <i class="fas fa-user"></i>
+                        <i class="fa-solid fa-truck"></i>
                         <span class="nav-item">Order</span>
                     </a></li>
                 <li><a href="adminProfile.php">
@@ -88,13 +88,6 @@ $total_sale = $stmt->fetch(PDO::FETCH_ASSOC)['total_sale'];
             </ul>
          
         </div>
- 
-            <!-- <div class="rounded-box">
-                <h2>Total Sales: $<?php echo $total_sales; ?></h2>
-            </div>
-            <div class="rounded-box">
-                <h2>Total Quantity: <?php echo $total_quantity; ?></h2>
-            </div> -->
 
         <div class="product-item">
         <div class="box">

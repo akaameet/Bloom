@@ -193,7 +193,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="footer_container container grid">
                 <div class="footer_logo">
                     <!-- <a href=""> -->
-                        <img src="assets/img/bloom-high-resolution-logo-transparent.png"/> 
+                        <img src="../assets/img/bloom-high-resolution-logo-transparent.png"/> 
                     <!-- </a> -->
                     <p>Feel free to follow us on Our Social <br>Media Handlers. All the links are <br>Given below </p>
                 

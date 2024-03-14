@@ -40,10 +40,10 @@ if(isset($_GET['search'])) {
             <i class="fa-solid fa-bars"></i>
         </label>
         <ul>
-            <li class="homeLink"><a href="#home">Home</a></li>
-            <li class="categoryLink"><a href="#category">Category</a></li>
+            <li class="homeLink"><a href="index.php#home">Home</a></li>
+            <li class="categoryLink"><a href="index.php#category">Category</a></li>
             <li class="productLink"><a href="product.php">Products</a></li>
-            <li class="contactLink"><a href="#contact">Contact</a></li>   
+            <li class="contactLink"><a href="index.php#contact">Contact</a></li>   
         </ul>
         <div class="icons">
             <div class="fa fa-search" id="search-btn"></div>

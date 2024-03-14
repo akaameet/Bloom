@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':phone', $phone);
         if ($stmt->execute()) {
             $success = 1;
-            header("Refresh: 2; url=/Bloom/login.php");
+            header("Refresh: 2; url=/Bloom/user/login.php");
         }
     }
 }
@@ -49,10 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <a href="index.php"><img src="../assets/img/bloom-high-resolution-logo-transparent.png" /> </a>
          </div>
          <div class="wrapper">
-            <!-- <div class="log_img">
-                <img src="img/signupbg.png" />
-            </div> -->
-
             <div class="signup_container">
                 <h1>Signup</h1>
                 <div class="message" style="color:red;">
